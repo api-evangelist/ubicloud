@@ -1,0 +1,124 @@
+overlay: 1.0.0
+info:
+  title: Ubicloud OpenAPI enhancements (API Evangelist)
+  version: 1.0.0
+extends: ../openapi/_original/ubicloud-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-provider: Ubicloud
+    x-api-evangelist:
+      generated: '2026-10-09'
+      docs: https://www.ubicloud.com/docs/api-reference/overview
+      llms_txt: https://www.ubicloud.com/docs/llms.txt
+      status_page: https://status.ubicloud.com
+- target: $.components.securitySchemes.BearerAuth
+  update:
+    description: Personal access token created on the project Tokens page in the Ubicloud console, passed in the Authorization header as a Bearer
+      token (https://www.ubicloud.com/docs/api-reference/overview).
+- target: $.info
+  update:
+    x-idempotency: Location-based resources have names unique per project and location; the API uses the name in the path as an idempotency token
+      for create requests (https://www.ubicloud.com/docs/api-reference/overview).
+- target: $.info
+  update:
+    x-error-codes:
+    - status: 403
+      meaning: Unauthorized user access
+    - status: 419
+      meaning: Invalid Token
+- target: $.paths['/project/{project_id}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/github/{github_installation_reference}/repository/{github_repository_reference}/cache'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/github/{github_installation_reference}/repository/{github_repository_reference}/cache/{github_cache_entry_id}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/inference-api-key/{inference_api_key_id}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/firewall/{firewall_reference}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/firewall/{firewall_reference}/firewall-rule/{firewall_rule_id}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/kubernetes-cluster/{kubernetes_cluster_reference}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/kubernetes-cluster/{kubernetes_cluster_reference}/nodepool/{kubernetes_nodepool_reference}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/machine-image/{machine_image_reference}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/machine-image/{machine_image_reference}/version/{version}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/postgres/{postgres_database_reference}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/postgres/{postgres_database_reference}/firewall-rule/{firewall_rule_id}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/postgres/{postgres_database_reference}/log-destination/{log_destination_id}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/postgres/{postgres_database_reference}/metric-destination/{metric_destination_id}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/private-subnet/{private_subnet_reference}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/location/{location}/vm/{vm_reference}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/private-location/{private_location_name}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true
+- target: $.paths['/project/{project_id}/ssh-public-key/{ssh_public_key_reference}'].delete
+  update:
+    x-agent-hint:
+      destructive: true
+      confirm_before_calling: true

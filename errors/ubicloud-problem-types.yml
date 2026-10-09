@@ -1,0 +1,18 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.ubicloud.com/docs/api-reference/overview
+name: Ubicloud Error Reference
+format: custom-json
+envelope:
+  shape: '{"error": {"code": <integer>, "message": <string>, "type": <string>, "details": <object|null>}}'
+  source: openapi/ubicloud-openapi.yml#/components/schemas/Error
+  example_type: InvalidCredentials
+note: Status descriptions are verbatim from the API overview's Responses table. Not RFC 9457 problem+json. All responses except 204 return JSON.
+problems:
+- {status: 400, title: Invalid request, type: null, description: Invalid request, remediation: null}
+- {status: 401, title: Not authenticated to the API, type: InvalidCredentials, description: Not authenticated to the API, remediation: You must pass the personal access token in the authorization header for all subsequent requests.}
+- {status: 403, title: Unauthorized user access, type: null, description: Unauthorized user access, remediation: null}
+- {status: 404, title: Resource not found, type: null, description: Resource not found, remediation: null}
+- {status: 409, title: Resource state is not valid to handle request, type: null, description: Resource state is not valid to handle request, remediation: null}
+- {status: 419, title: Invalid Token, type: null, description: Invalid Token, remediation: null}
+- {status: 500, title: Unexpected internal error, type: null, description: Unexpected internal error, remediation: null}

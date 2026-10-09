@@ -1,0 +1,26 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.ubicloud.com/docs/security/overview
+name: Ubicloud Conformance
+standards:
+- id: soc2
+  conforms: true
+  evidence: https://www.ubicloud.com/docs/security/overview — "Ubicloud is SOC 2 Type 2 compliant. You can request our SOC 2 Type 2 report and
+    our most recent penetration test report through our Trust Center (https://trust.ubicloud.com/)."
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi/ubicloud-openapi.yml declares openapi 3.0.3
+- id: rfc9457
+  conforms: false
+  evidence: 'Error responses use a custom {"error": {code, message, type, details}} envelope (openapi/ubicloud-openapi.yml#/components/schemas/Error),
+    not application/problem+json.'
+- id: pagination
+  conforms: true
+  evidence: https://www.ubicloud.com/docs/api-reference/overview — cursor-based pagination with order_column, start_after and page_size on all
+    list endpoints.
+- id: oauth2
+  conforms: false
+  evidence: 'securitySchemes: BearerAuth (http)'
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key parameter on mutating operations

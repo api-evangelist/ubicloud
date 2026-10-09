@@ -1,0 +1,462 @@
+openapi: 3.2.0
+info:
+  title: Ubicloud Firewall API
+  version: 0.1.0
+  contact:
+    url: https://www.ubicloud.com/
+    email: support@ubicloud.com
+  license:
+    name: GNU Affero General Public License v3.0 (AGPL-3.0)
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
+  description: 'Operations tagged Firewall across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.ubicloud.com
+security:
+- BearerAuth: []
+tags:
+- description: Firewall Operations
+  name: Firewall
+paths:
+  /project/{project_id}/firewall:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    get:
+      operationId: getFirewall
+      summary: List all firewalls
+      responses:
+        '200':
+          $ref: '#/components/responses/Firewalls'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/firewall:
+    parameters:
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/project_id'
+    get:
+      operationId: getLocationFirewall
+      summary: List firewalls in a location
+      responses:
+        '200':
+          $ref: '#/components/responses/Firewalls'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/firewall/{firewall_reference}:
+    parameters:
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/firewall_reference'
+    delete:
+      operationId: deleteLocationFirewall
+      summary: Delete a firewall
+      responses:
+        '204':
+          $ref: '#/components/responses/Delete'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall
+    get:
+      operationId: getLocationFirewallDetails
+      summary: Get firewall details
+      responses:
+        '200':
+          $ref: '#/components/responses/FirewallDetailed'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall
+    post:
+      operationId: createLocationFirewall
+      summary: Create a new firewall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  description: Description of the firewall
+                  type: string
+              additionalProperties: false
+      responses:
+        '200':
+          $ref: '#/components/responses/Firewall'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall
+    patch:
+      operationId: updateFirewall
+      summary: Update a firewall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  description: New description for firewall
+                  type: string
+              additionalProperties: false
+              required:
+              - description
+      responses:
+        '200':
+          $ref: '#/components/responses/Firewall'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/firewall/{firewall_reference}/attach-subnet:
+    parameters:
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/firewall_reference'
+    post:
+      operationId: actionLocationFirewallAttachSubnet
+      summary: Attach a subnet to firewall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                private_subnet_id:
+                  description: Private subnet id to attach
+                  type: string
+              additionalProperties: false
+              required:
+              - private_subnet_id
+      responses:
+        '200':
+          $ref: '#/components/responses/FirewallDetailed'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/firewall/{firewall_reference}/detach-subnet:
+    parameters:
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/firewall_reference'
+    post:
+      operationId: actionLocationFirewallDetachSubnet
+      summary: Detach a subnet from firewall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                private_subnet_id:
+                  description: Private subnet id to detach
+                  type: string
+              additionalProperties: false
+              required:
+              - private_subnet_id
+      responses:
+        '200':
+          $ref: '#/components/responses/FirewallDetailed'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/firewall/{firewall_reference}/rename:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/firewall_reference'
+    post:
+      operationId: renameFirewall
+      summary: Rename a firewall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: New name for firewall
+                  type: string
+              additionalProperties: false
+              required:
+              - name
+      responses:
+        '200':
+          $ref: '#/components/responses/Firewall'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall
+    servers:
+    - url: https://api.ubicloud.com
+components:
+  responses:
+    Firewall:
+      description: A Firewall
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Firewall'
+    Delete:
+      description: An empty response after successful resource delete
+    FirewallDetailed:
+      description: A Firewall (detailed)
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            allOf:
+            - $ref: '#/components/schemas/Firewall'
+            - properties:
+                private_subnets:
+                  description: List of private subnets
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PrivateSubnet'
+              additionalProperties: false
+              required:
+              - private_subnets
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Firewalls:
+      description: A list of Firewalls
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Firewall'
+            additionalProperties: false
+            required:
+            - count
+            - items
+  schemas:
+    Nic:
+      type: object
+      properties:
+        id:
+          description: ID of the NIC
+          type: string
+        name:
+          description: Name of the NIC
+          type: string
+        private_ipv4:
+          description: Private IPv4 address
+          type: string
+          format: ipv4
+        private_ipv6:
+          description: Private IPv6 address
+          type: string
+          format: ipv6
+        vm_name:
+          description: Name of the VM
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      required:
+      - id
+      - name
+      - private_ipv4
+      - private_ipv6
+      - vm_name
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: There was an error logging in
+            type:
+              type: string
+              example: InvalidCredentials
+            details:
+              type:
+              - object
+              - 'null'
+          required:
+          - code
+          - message
+          - type
+      additionalProperties: false
+      required:
+      - error
+    PrivateSubnet:
+      type: object
+      properties:
+        firewalls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Firewall'
+        id:
+          description: ID of the subnet
+          type: string
+          example: ps3dngttwvje2kmr2sn8x12x4r
+          pattern: ^ps[0-9a-hj-km-np-tv-z]{24}$
+        location:
+          description: Location of the subnet
+          type: string
+        name:
+          description: Name of the subnet
+          type: string
+        net4:
+          description: IPv4 CIDR of the subnet
+          type: string
+        net6:
+          description: IPv6 CIDR of the subnet
+          type: string
+        nics:
+          description: List of NICs
+          type: array
+          items:
+            $ref: '#/components/schemas/Nic'
+        state:
+          description: State of the subnet
+          type: string
+      additionalProperties: false
+      required:
+      - firewalls
+      - id
+      - location
+      - name
+      - net4
+      - net6
+      - nics
+      - state
+    FirewallRule:
+      type: object
+      properties:
+        cidr:
+          description: CIDR of the firewall rule
+          type: string
+        id:
+          description: ID of the firewall rule
+          type: string
+          example: fraz0q3vbrpa7pkg7zbmah9csn
+          pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
+        port_range:
+          description: Port range of the firewall rule
+          type: string
+        protocol:
+          description: Protocol of the firewall rule (tcp or udp)
+          type: string
+          enum:
+          - tcp
+          - udp
+        description:
+          description: Description of the firewall rule
+          type: string
+      additionalProperties: false
+      required:
+      - cidr
+      - id
+      - port_range
+      - protocol
+      - description
+    Firewall:
+      type: object
+      properties:
+        description:
+          description: Description of the firewall
+          type: string
+        firewall_rules:
+          description: List of firewall rules
+          type: array
+          items:
+            $ref: '#/components/schemas/FirewallRule'
+        id:
+          description: ID of the firewall
+          type: string
+          example: fwfg7td83em22qfw9pq5xyfqb7
+          pattern: ^fw[0-9a-hj-km-np-tv-z]{24}$
+        location:
+          description: Location of the firewall
+          type: string
+        name:
+          description: Name of the firewall
+          type: string
+      additionalProperties: false
+      required:
+      - description
+      - firewall_rules
+      - id
+      - location
+      - name
+    Reference:
+      description: Resource ID or name
+      type: string
+      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+  parameters:
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    location:
+      description: The Ubicloud location/region
+      in: path
+      name: location
+      required: true
+      schema:
+        type: string
+        example: eu-central-h1
+    firewall_reference:
+      description: Firewall ID or name
+      examples:
+        id:
+          value: fwn30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: firewall-name
+      in: path
+      name: firewall_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+x-refined-from:
+- ubicloud-openapi.yml
+- ubicloud-openapi.yml

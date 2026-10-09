@@ -1,0 +1,122 @@
+generated: '2026-10-09'
+method: derived
+generator: derive-data-model.py
+source:
+- openapi/ubicloud-openapi.yml
+notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
+summary:
+  entities: 36
+  entities_in_spec: 36
+  relationships: 9
+entities:
+- name: AuditLog
+  fields: 5
+- name: CertAuthUserList
+  fields: 1
+- name: CertAuthUserRequest
+  fields: 1
+- name: Error
+  fields: 1
+- name: Firewall
+  fields: 5
+- name: FirewallRule
+  fields: 5
+- name: GithubCacheEntry
+  fields: 8
+- name: GithubInstallation
+  fields: 2
+- name: GithubRepository
+  fields: 3
+- name: InferenceApiKey
+  fields: 2
+- name: InferenceEndpoint
+  fields: 7
+- name: InferenceEndpointPrice
+  fields: 2
+- name: KubernetesCluster
+  fields: 10
+- name: KubernetesNodepool
+  fields: 7
+- name: LoadBalancer
+  fields: 11
+- name: MachineImage
+  fields: 6
+- name: MachineImageVersion
+  fields: 7
+- name: Nic
+  fields: 5
+- name: PostgresBackup
+  fields: 2
+- name: PostgresBackupCredentials
+  fields: 7
+- name: PostgresCapabilities
+  fields: 2
+  description: 'Tree of valid option combinations and metadata for each option value. The option_tree encodes parent-child
+    dependencies: traverse from flavor -> location -> family -> size -> storage_size -> ha_type ('
+- name: PostgresConfig
+  fields: 4
+- name: PostgresDatabase
+  fields: 21
+- name: PostgresDatabaseLogEntry
+  fields: 7
+- name: PostgresFirewallRule
+  fields: 4
+- name: PostgresLogDestination
+  fields: 4
+- name: PostgresServer
+  fields: 6
+- name: PostgresTag
+  fields: 2
+- name: PrivateLocation
+  fields: 5
+- name: PrivateSubnet
+  fields: 8
+- name: Project
+  fields: 2
+- name: ResourceMetrics
+  fields: 1
+- name: RunCommand
+  fields: 3
+- name: SshPublicKey
+  fields: 3
+- name: SshPublicKeyCreate
+  fields: 2
+- name: Vm
+  fields: 12
+relationships:
+- from: Firewall
+  to: FirewallRule
+  type: has_many
+  via: firewall_rules
+- from: InferenceEndpoint
+  to: InferenceEndpointPrice
+  type: has_one
+  via: price
+- from: PostgresDatabase
+  to: PostgresTag
+  type: has_many
+  via: tags
+- from: PrivateSubnet
+  to: Firewall
+  type: has_many
+  via: firewalls
+- from: PrivateSubnet
+  to: Nic
+  type: has_many
+  via: nics
+- from: KubernetesCluster
+  to: Vm
+  type: has_many
+  via: cp_vms
+- from: KubernetesCluster
+  to: KubernetesNodepool
+  type: has_many
+  via: nodepools
+- from: KubernetesNodepool
+  to: KubernetesCluster
+  type: belongs_to
+  via: kubernetes_cluster_id
+- from: KubernetesNodepool
+  to: Vm
+  type: has_many
+  via: vms

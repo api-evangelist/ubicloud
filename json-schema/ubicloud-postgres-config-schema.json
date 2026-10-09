@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ubicloud/main/json-schema/ubicloud-postgres-config-schema.json",
+  "title": "PostgresConfig",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/ubicloud-openapi.yml#/components/schemas/PostgresConfig",
+  "type": "object",
+  "properties": {
+    "pg_config": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    },
+    "pgbouncer_config": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    },
+    "default_pg_config": {
+      "description": "System-computed configuration values based on instance size. User overrides in pg_config take precedence.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      },
+      "readOnly": true
+    },
+    "message": {
+      "description": "Informational message about the configuration update, such as restart requirements.",
+      "type": "string",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "pg_config",
+    "pgbouncer_config"
+  ]
+}

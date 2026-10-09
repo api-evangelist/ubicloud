@@ -1,0 +1,236 @@
+name: Ubicloud MCP Server (candidate)
+type: MCPServer
+status: candidate
+generated: '2026-10-09'
+method: derived
+source: openapi/ubicloud-openapi.yml
+description: 'No official Ubicloud MCP server was found: a web search for a Ubicloud MCP server returned nothing about Ubicloud, the provider docs index (https://www.ubicloud.com/docs/llms.txt) and the
+  full docs dump (llms-full.txt) mention MCP zero times, and the ubicloud/ubicloud repo has no AGENTS.md (404). This is a candidate tool list derived from the Clover API (Ubicloud) OpenAPI operations; nobody
+  ships it.'
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+api:
+  openapi: openapi/ubicloud-openapi.yml
+  base_url: https://api.ubicloud.com
+  auth: Bearer personal access token (BearerAuth, http bearer) per https://www.ubicloud.com/docs/api-reference/overview
+evidence:
+- url: https://www.ubicloud.com/docs/llms.txt
+  status: 200
+  note: docs index, no MCP mention
+- url: https://raw.githubusercontent.com/ubicloud/ubicloud/main/AGENTS.md
+  status: 404
+tool_count: 30
+operations_total: 132
+tools:
+- name: getProject
+  description: Retrieve a project
+  operationId: getProject
+  method: GET
+  path: /project/{project_id}
+  readOnly: true
+  destructive: false
+- name: listProjectVMs
+  description: List all VMs
+  operationId: listProjectVMs
+  method: GET
+  path: /project/{project_id}/vm
+  readOnly: true
+  destructive: false
+- name: getVMDetails
+  description: Get VM details
+  operationId: getVMDetails
+  method: GET
+  path: /project/{project_id}/location/{location}/vm/{vm_reference}
+  readOnly: true
+  destructive: false
+- name: createVM
+  description: Create a new VM
+  operationId: createVM
+  method: POST
+  path: /project/{project_id}/location/{location}/vm/{vm_reference}
+  readOnly: false
+  destructive: false
+- name: restartVM
+  description: Restart a VM
+  operationId: restartVM
+  method: POST
+  path: /project/{project_id}/location/{location}/vm/{vm_reference}/restart
+  readOnly: false
+  destructive: false
+- name: startVM
+  description: Start a VM
+  operationId: startVM
+  method: POST
+  path: /project/{project_id}/location/{location}/vm/{vm_reference}/start
+  readOnly: false
+  destructive: false
+- name: stopVm
+  description: Stop a VM
+  operationId: stopVm
+  method: POST
+  path: /project/{project_id}/location/{location}/vm/{vm_reference}/stop
+  readOnly: false
+  destructive: false
+- name: deleteVM
+  description: Delete a VM
+  operationId: deleteVM
+  method: DELETE
+  path: /project/{project_id}/location/{location}/vm/{vm_reference}
+  readOnly: false
+  destructive: true
+- name: listPostgresDatabases
+  description: List all PostgreSQL databases
+  operationId: listPostgresDatabases
+  method: GET
+  path: /project/{project_id}/postgres
+  readOnly: true
+  destructive: false
+- name: getPostgresDatabaseDetails
+  description: Get PostgreSQL database details
+  operationId: getPostgresDatabaseDetails
+  method: GET
+  path: /project/{project_id}/location/{location}/postgres/{postgres_database_reference}
+  readOnly: true
+  destructive: false
+- name: createPostgresDatabase
+  description: Create a new PostgreSQL database
+  operationId: createPostgresDatabase
+  method: POST
+  path: /project/{project_id}/location/{location}/postgres/{postgres_database_reference}
+  readOnly: false
+  destructive: false
+- name: restartPostgresDatabase
+  description: Restart a PostgreSQL database
+  operationId: restartPostgresDatabase
+  method: POST
+  path: /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/restart
+  readOnly: false
+  destructive: false
+- name: deletePostgresDatabase
+  description: Delete a PostgreSQL database
+  operationId: deletePostgresDatabase
+  method: DELETE
+  path: /project/{project_id}/location/{location}/postgres/{postgres_database_reference}
+  readOnly: false
+  destructive: true
+- name: listProjectKubernetesClusters
+  description: List all kubernetes clusters
+  operationId: listProjectKubernetesClusters
+  method: GET
+  path: /project/{project_id}/kubernetes-cluster
+  readOnly: true
+  destructive: false
+- name: getKubernetesClusterDetails
+  description: Get kubernetes cluster details
+  operationId: getKubernetesClusterDetails
+  method: GET
+  path: /project/{project_id}/location/{location}/kubernetes-cluster/{kubernetes_cluster_reference}
+  readOnly: true
+  destructive: false
+- name: createKubernetesCluster
+  description: Create a new kubernetes cluster
+  operationId: createKubernetesCluster
+  method: POST
+  path: /project/{project_id}/location/{location}/kubernetes-cluster/{kubernetes_cluster_reference}
+  readOnly: false
+  destructive: false
+- name: getKubernetesKubeconfigFile
+  description: Get kubeconfig file
+  operationId: getKubernetesKubeconfigFile
+  method: GET
+  path: /project/{project_id}/location/{location}/kubernetes-cluster/{kubernetes_cluster_reference}/kubeconfig
+  readOnly: true
+  destructive: false
+- name: deleteKubernetesCluster
+  description: Delete a kubernetes cluster
+  operationId: deleteKubernetesCluster
+  method: DELETE
+  path: /project/{project_id}/location/{location}/kubernetes-cluster/{kubernetes_cluster_reference}
+  readOnly: false
+  destructive: true
+- name: getFirewall
+  description: List all firewalls
+  operationId: getFirewall
+  method: GET
+  path: /project/{project_id}/firewall
+  readOnly: true
+  destructive: false
+- name: createLocationFirewall
+  description: Create a new firewall
+  operationId: createLocationFirewall
+  method: POST
+  path: /project/{project_id}/location/{location}/firewall/{firewall_reference}
+  readOnly: false
+  destructive: false
+- name: createLocationFirewallRule
+  description: Create a new firewall rule
+  operationId: createLocationFirewallRule
+  method: POST
+  path: /project/{project_id}/location/{location}/firewall/{firewall_reference}/firewall-rule
+  readOnly: false
+  destructive: false
+- name: listLoadBalancers
+  description: List all load balancers
+  operationId: listLoadBalancers
+  method: GET
+  path: /project/{project_id}/load-balancer
+  readOnly: true
+  destructive: false
+- name: createLocationLoadBalancer
+  description: Create a new load balancer
+  operationId: createLocationLoadBalancer
+  method: POST
+  path: /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}
+  readOnly: false
+  destructive: false
+- name: attachVmLocationLoadBalancer
+  description: Attach a VM to a load balancer
+  operationId: attachVmLocationLoadBalancer
+  method: POST
+  path: /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}/attach-vm
+  readOnly: false
+  destructive: false
+- name: listPSs
+  description: List all private subnets
+  operationId: listPSs
+  method: GET
+  path: /project/{project_id}/private-subnet
+  readOnly: true
+  destructive: false
+- name: createPrivateSubnet
+  description: Create a new private subnet
+  operationId: createPrivateSubnet
+  method: POST
+  path: /project/{project_id}/location/{location}/private-subnet/{private_subnet_reference}
+  readOnly: false
+  destructive: false
+- name: getSshPublicKeys
+  description: List all SSH public keys
+  operationId: getSshPublicKeys
+  method: GET
+  path: /project/{project_id}/ssh-public-key
+  readOnly: true
+  destructive: false
+- name: registerSshPublicKey
+  description: Register a SSH public key
+  operationId: registerSshPublicKey
+  method: POST
+  path: /project/{project_id}/ssh-public-key
+  readOnly: false
+  destructive: false
+- name: searchProjectAuditLog
+  description: Search project audit log entries
+  operationId: searchProjectAuditLog
+  method: GET
+  path: /project/{project_id}/audit-log
+  readOnly: true
+  destructive: false
+- name: getObjectInfo
+  description: Return information on object type, location, and name
+  operationId: getObjectInfo
+  method: GET
+  path: /project/{project_id}/object-info/{object_id}
+  readOnly: true
+  destructive: false

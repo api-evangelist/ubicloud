@@ -1,0 +1,30 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.ubicloud.com/docs/api-reference/overview
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/ubicloud-openapi.yml
+  credential: personal access token
+  obtain: Create Token button on the project Tokens page in the console
+  in: header
+  header: Authorization
+  evidence: The Ubicloud API uses personal access tokens for authentication.
+  invalid_token_status: 419
+docs: https://www.ubicloud.com/docs/api-reference/overview
+other_credentials:
+- name: Inference API key
+  docs: https://www.ubicloud.com/docs/inference/api-key
+  note: Separate keys for the AI inference endpoints, managed via the inference-api-key
+    operations.
+- name: CLI
+  note: ubi reads the personal access token from the UBI_TOKEN environment variable.
+authorization:
+  model: attribute-based access control (ABAC) per project
+  docs: https://www.ubicloud.com/docs/security/authorization

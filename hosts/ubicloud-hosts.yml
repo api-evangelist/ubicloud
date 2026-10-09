@@ -1,0 +1,139 @@
+generated: '2026-10-09'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 9
+  own: 6
+  other_domain: 0
+  platform: 3
+  roles:
+  - api
+  - identity
+  - other
+  - source
+  - status
+  - website
+hosts:
+- host: api.ubicloud.com
+  found_by:
+  - apis[]
+  - contract-discovery
+  types: []
+  serves:
+  - api
+  registrable_domain: ubicloud.com
+  role: api
+  relation: own
+- host: console.ubicloud.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - SignUp
+  - Login
+  serves: []
+  registrable_domain: ubicloud.com
+  role: identity
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - SpectralRules
+  - GitHubOrganization
+  - GitHubRepository
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: status.ubicloud.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - StatusPage
+  serves:
+  - status-page
+  vendor: instatus
+  registrable_domain: ubicloud.com
+  role: status
+  relation: own
+- host: trust.ubicloud.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - TrustCenter
+  serves: []
+  registrable_domain: ubicloud.com
+  role: other
+  relation: own
+- host: twitter.com
+  found_by:
+  - pointer
+  types:
+  - X
+  serves: []
+  registrable_domain: twitter.com
+  role: other
+  relation: platform
+- host: ubicloud.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: ubicloud.com
+  role: other
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.ubicloud.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  - Documentation
+  - APIReference
+  - GettingStarted
+  - Support
+  - Blog
+  - RSSFeed
+  - ChangeLog
+  - Pricing
+  - TermsOfService
+  - PrivacyPolicy
+  - About
+  - Contact
+  serves:
+  - docs
+  - cdn
+  vendor: cloudflare
+  registrable_domain: ubicloud.com
+  role: website
+  relation: own

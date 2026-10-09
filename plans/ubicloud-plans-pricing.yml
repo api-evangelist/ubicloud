@@ -1,0 +1,93 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.ubicloud.com/docs/about/pricing
+name: Ubicloud Pricing
+audience: business-product
+pricing_basis: usage-other
+published: true
+currency: USD
+billing: Billing is based on the resources provisioned, pro-rated for the time they are provisioned. We calculate resource consumption at per minute granularity and bill monthly.
+delivery:
+  delivery: open-core
+  evidence: You can set it up yourself on these providers or use our managed service.
+  free_edition: self-hosted Ubicloud (set up yourself on bare metal providers such as Hetzner, Leaseweb, or AWS Bare Metal)
+  managed_tier: managed service
+note: Prices are for the managed service in Germany (Hetzner) unless stated; the September 2026 changelog records a 25% increase for Germany and Finland on September 1, 2026. Representative rows only; the page tables list every size.
+plans:
+- name: GitHub Actions free credit
+  description: Monthly runner credit for every account.
+  price: 2.5
+  price_text: $2.5/month credit
+  features: ['1,250 minutes of Ubicloud runner time']
+  limits: []
+- name: Standard x64 Runner (ubicloud-standard-2)
+  description: 2 vCPU, 8GB; billed per minute.
+  price: 0.00125
+  price_text: $0.00125/min
+  features: [dedicated CPU, memory, local block storage, public IPv4 address]
+  limits: ['2 vCPU', '8GB memory']
+- name: Premium x64 Runner (2 vCPU)
+  description: Premium runner, default for new users.
+  price: 0.002
+  price_text: $0.002/min
+  features: [falls back to standard runners when premium capacity is full]
+  limits: ['2 vCPU', '8GB memory']
+- name: standard-2 VM
+  description: Standard VM with dedicated CPU, memory and local block storage.
+  price: 41.89
+  price_text: $41.89/mo
+  features: [private IPv4 and IPv6, public IPv6 free]
+  limits: ['2 vCPU', '8GB memory', '40GB storage']
+- name: standard-60 VM
+  description: Largest standard VM.
+  price: 1256.85
+  price_text: $1256.85/mo
+  features: []
+  limits: ['60 vCPU', '240GB memory', '1200GB storage']
+- name: burstable-1 VM
+  description: Burstable VM with shared CPU.
+  price: 10.47
+  price_text: $10.47/mo
+  features: [burst up to 100% of allocated vCPU at micro-intervals]
+  limits: ['1 vCPU', '2GB memory', '10GB storage']
+- name: Public IPv4 address
+  description: Optional public IPv4 per VM.
+  price: 3.00
+  price_text: $3.00/month
+  features: []
+  limits: []
+- name: Egress overage
+  description: Charged beyond the per-VM monthly egress quota.
+  price: 3
+  price_text: $3 per TB
+  features: []
+  limits: ['monthly egress quota of 0.625TB per 2 vCPUs']
+- name: Machine Image Storage
+  description: Billed on archive size of each image version.
+  price_text: $0.0000034722/GiB/min
+  features: []
+  limits: []
+- name: Standard PostgreSQL standard-2
+  description: Managed PostgreSQL with dedicated CPU; backups retained 7 days.
+  price: 78
+  price_text: $78
+  features: [restore from backups at per-minute granularity]
+  limits: ['2 vCPU', '8GB memory', '64GB storage']
+- name: Hobby PostgreSQL hobby-1
+  description: Managed PostgreSQL with shared CPUs.
+  price: 19.54
+  price_text: $19.54
+  features: []
+  limits: ['1 vCPU', '2GB memory', '16GB storage']
+- name: Managed Kubernetes single node control plane, 1 worker
+  description: Non-HA control plane with one 2 vCore / 8 GB worker.
+  price: 71.82
+  price_text: $71.82
+  features: [no hidden costs for networking, load balancers or egress fees]
+  limits: []
+- name: Managed Kubernetes 3 nodes (HA), 3 workers
+  description: HA control plane with three workers.
+  price: 215.46
+  price_text: $215.46
+  features: []
+  limits: []

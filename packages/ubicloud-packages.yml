@@ -1,0 +1,46 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.ubicloud.com/docs/quick-start/cli
+name: Ubicloud Packages
+packages:
+- name: ubicloud
+  registry: rubygems
+  url: https://rubygems.org/gems/ubicloud
+  language: ruby
+  official: false
+  version: 0.1.0
+  published: '2025-03-31'
+  note: Gem info "Ubicloud Ruby SDK", authors "Ubicloud, Inc.", source https://github.com/ubicloud/ubicloud/tree/main/sdk/ruby (rubygems.org/api/v1/gems/ubicloud.json,
+    200).
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: ubi
+  registry: github-releases
+  url: https://github.com/ubicloud/cli/releases
+  language: go
+  official: true
+  version: 1.1.0
+  published: '2025-09-09'
+  note: First-party CLI binary documented at /docs/quick-start/cli; version from api.github.com/repos/ubicloud/cli/releases/latest.
+- name: ubicloud/cli/ubi
+  registry: homebrew
+  url: https://github.com/ubicloud/homebrew-cli
+  language: go
+  official: true
+  version: 1.0.0
+  published: null
+  note: Homebrew tap formula Formula/ubi.rb declares version "1.0.0" (behind the 1.1.0 GitHub release); formula carries no publish date.
+- name: ubicloud/ubicloud
+  registry: terraform
+  url: https://registry.terraform.io/providers/ubicloud/ubicloud
+  language: hcl
+  official: true
+  version: 0.1.3
+  published: '2025-03-18'
+  note: Source github.com/ubicloud/terraform-provider-ubicloud (registry.terraform.io/v1/providers/ubicloud/ubicloud, 200).
+checked_absent:
+- registry: npm
+  name: ubicloud
+  status: 404
+- registry: pypi
+  name: ubicloud
+  status: 404

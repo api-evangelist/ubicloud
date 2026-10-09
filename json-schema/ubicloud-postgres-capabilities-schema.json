@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/ubicloud/main/json-schema/ubicloud-postgres-capabilities-schema.json",
+  "title": "PostgresCapabilities",
+  "description": "Tree of valid option combinations and metadata for each option value. The option_tree encodes parent-child dependencies: traverse from flavor -> location -> family -> size -> storage_size -> ha_type (with version branching from flavor). Only combinations present in the tree are valid for provisioning.",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/ubicloud-openapi.yml#/components/schemas/PostgresCapabilities",
+  "type": "object",
+  "properties": {
+    "option_tree": {
+      "description": "Nested object where each level maps option values to their valid children.",
+      "type": "object",
+      "additionalProperties": true
+    },
+    "metadata": {
+      "description": "Display info for option values referenced in the tree",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "flavor": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "display_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "display_name"
+            ]
+          }
+        },
+        "location": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "display_name": {
+                "type": "string"
+              },
+              "ui_name": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "display_name",
+              "ui_name",
+              "provider"
+            ]
+          }
+        },
+        "family": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "display_name": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "display_name",
+              "category"
+            ]
+          }
+        },
+        "size": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "vcpu": {
+                "type": "integer"
+              },
+              "memory_gib": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "vcpu",
+              "memory_gib"
+            ]
+          }
+        },
+        "ha_type": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "display_name": {
+                "type": "string"
+              },
+              "standby_count": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "display_name",
+              "standby_count"
+            ]
+          }
+        }
+      },
+      "required": [
+        "flavor",
+        "location",
+        "family",
+        "size",
+        "ha_type"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "option_tree",
+    "metadata"
+  ]
+}

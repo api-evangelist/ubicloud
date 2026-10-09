@@ -1,0 +1,57 @@
+{
+  "provider": "ubicloud",
+  "sources": [
+    "_original/ubicloud-openapi.yml",
+    "ubicloud-openapi.yml"
+  ],
+  "outputs": [
+    "ubicloud-audit-log-api-openapi.yml",
+    "ubicloud-firewall-api-openapi.yml",
+    "ubicloud-firewall-rule-api-openapi.yml",
+    "ubicloud-github-api-openapi.yml",
+    "ubicloud-inference-api-key-api-openapi.yml",
+    "ubicloud-inference-endpoint-api-openapi.yml",
+    "ubicloud-kubernetes-cluster-api-openapi.yml",
+    "ubicloud-load-balancer-api-openapi.yml",
+    "ubicloud-machine-image-api-openapi.yml",
+    "ubicloud-postgres-database-api-openapi.yml",
+    "ubicloud-postgres-firewall-rule-api-openapi.yml",
+    "ubicloud-postgres-log-destination-api-openapi.yml",
+    "ubicloud-postgres-metric-destination-api-openapi.yml",
+    "ubicloud-private-location-api-openapi.yml",
+    "ubicloud-private-subnet-api-openapi.yml",
+    "ubicloud-project-api-openapi.yml",
+    "ubicloud-ssh-public-key-api-openapi.yml",
+    "ubicloud-virtual-machine-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/ubicloud-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "ubicloud-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "ubicloud-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tag 'Audit Log' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Firewall' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Firewall Rule' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'GitHub' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Inference Api Key' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Inference Endpoint' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Kubernetes Cluster' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Load Balancer' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Machine Image' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Postgres Database' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Postgres Firewall Rule' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Postgres Log Destination' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Postgres Metric Destination' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Private Location' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Private Subnet' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Project' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'SSH Public Key' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "tag 'Virtual Machine' spans 2 source specs (ubicloud-openapi.yml, ubicloud-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+18 apis, 18 total)"
+  ],
+  "skipped": []
+}

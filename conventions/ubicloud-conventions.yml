@@ -1,0 +1,67 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.ubicloud.com/docs/api-reference/overview
+name: Ubicloud API Conventions
+base_url: https://api.ubicloud.com
+style: REST over HTTPS; all request and response bodies are JSON (except 204).
+auth:
+  style: bearer personal access token (OpenAPI BearerAuth, http bearer, bearerFormat JWT)
+  evidence: You must pass the personal access token in the authorization header for all subsequent requests.
+  see: authentication/ubicloud-authentication.yml
+resource_addressing:
+  ids: UBID, type-prefixed identifiers (e.g. pj... for projects, vm... for virtual machines)
+  static_access: by ID
+  dynamic_access: location-based resources also by name, /project/{project_id}/location/{location}/{type}/{name}
+methods:
+  GET: Retrieves either a single resource or a list of resources. Supports pagination for lists.
+  POST: Creates a resource. Also allows for executing actions on resources.
+  PATCH: Updates a resource.
+  DELETE: Deletes a resource. If the given resource URI is valid, it returns a 204 status code irrespective of the resource exists or not.
+idempotency:
+  coverage: partial
+  mechanism: name-addressed URIs (no Idempotency-Key header)
+  evidence: user can send a POST request directly to the resource's URI using its unique name, making the requests idempotent.
+  delete_semantics: The DELETE endpoints return a 204 status code, whether the resource was deleted or did not exist to simplify client implementation.
+  scope:
+  - createVM
+  - createPostgresDatabase
+  - createKubernetesCluster
+  - createLocationFirewall
+  - createLocationLoadBalancer
+  - createPrivateSubnet
+  - createMachineImage
+  - all DELETE operations (204 whether or not the resource existed)
+  note: No Idempotency-Key header or replay window is documented; action POSTs (restart, promote, etc.) and global-resource creates (POST /project) are not covered.
+pagination:
+  style: cursor
+  params:
+    order_column: id, or name for endpoints with unique names
+    start_after: polymorphic cursor value matching order_column
+    page_size: default 1000, must be between 1 and 1000
+  response_fields: [items, count]
+field_expansion: not documented
+metadata: Object tags (see /docs/security/authorization) — not a general metadata field
+request_id: not documented
+versioning:
+  see: lifecycle/ubicloud-lifecycle.yml
+  note: API is labelled Beta; no versioning mechanism documented.
+errors:
+  envelope: '{"error": {"code", "message", "type", "details"}}'
+  see: errors/ubicloud-problem-types.yml
+rate_limits:
+  signaling: not documented
+  see: rate-limits/ubicloud-rate-limits.yml
+reversibility:
+  status: documented
+  surfaces:
+  - surface: Managed PostgreSQL data
+    operationId: restorePostgresDatabase
+    reversal: point-in-time restore into a new database (the console calls this "Fork")
+    window: We retain backups for a period of 7 days
+    window_source: https://www.ubicloud.com/docs/managed-postgresql/backup-and-restore
+    grade: verified
+  - surface: VMs, Kubernetes clusters, load balancers, firewalls, subnets, machine images, projects (DELETE)
+    operationId: null
+    reversal: none documented
+    grade: none
+  dry_run_mode: not documented

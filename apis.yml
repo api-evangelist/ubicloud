@@ -1,23 +1,582 @@
 aid: ubicloud
+
 name: Ubicloud
-description: 'Ubicloud is a company surfaced via the API Evangelist harvest backlog (source: spectral-ruleset-github)
-  and added to the network as a stub for full-pipeline profiling.'
+
+description: Ubicloud is an open source cloud that can run anywhere, positioned as an open source alternative to AWS. It provides cloud services
+  such as compute (virtual machines), managed PostgreSQL, Kubernetes, GitHub Actions runners and machine images on bare metal providers like Hetzner,
+  Leaseweb and AWS Bare Metal, offered as a managed service at console.ubicloud.com or self-hosted. It publishes an API reference and documentation
+  at ubicloud.com/docs. Founded by Ozgun Erdogan, Umur Cubukcu and Daniel Farina.
+
 url: https://raw.githubusercontent.com/api-evangelist/ubicloud/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:spectral-ruleset-github
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-09 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-09'
+
 modified: '2026-10-09'
+
 tags:
 - Company
-apis: []
+- Cloud Computing
+- Open Source
+- Infrastructure as a Service
+- PostgreSQL
+- Kubernetes
+- Virtual Machines
+- GitHub Actions
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
+image: https://cdn.prod.website-files.com/64f9d9b4e737e7b37d4e39a4/64fe41a59732cbbaa5762828_Webclip.png
+
 common:
+- type: AgenticAccess
+  url: agentic-access/ubicloud-agentic-access.yml
+- type: Plans
+  url: plans/ubicloud-plans-pricing.yml
+- type: Spectral
+  url: rules/ubicloud-ubicloud-spectral-rules.yml
+- type: Spectral
+  url: rules/ubicloud-rules.yml
+- type: JSONLD
+  url: json-ld/ubicloud-context.jsonld
+- type: Vocabulary
+  url: vocabulary/ubicloud-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/ubicloud-data-model.yml
+- type: CLI
+  url: cli/ubicloud-cli.yml
+- type: ChangeLog
+  url: changelog/ubicloud-changelog.yml
+- type: Idempotency
+  url: conventions/ubicloud-conventions.yml
+- type: Conventions
+  url: conventions/ubicloud-conventions.yml
+- type: Deprecation
+  url: lifecycle/ubicloud-lifecycle.yml
+- type: Lifecycle
+  url: lifecycle/ubicloud-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/ubicloud-problem-types.yml
+- type: Conformance
+  url: conformance/ubicloud-conformance.yml
+- type: Overlay
+  url: overlays/ubicloud-openapi-overlay.yaml
+- type: Hosts
+  url: hosts/ubicloud-hosts.yml
+- type: Vendors
+  url: vendors/ubicloud-vendors.yml
+- type: SDKs
+  url: packages/ubicloud-packages.yml
+- type: Packages
+  url: packages/ubicloud-packages.yml
+- type: Authentication
+  url: authentication/ubicloud-authentication.yml
+- type: DomainSecurity
+  url: security/ubicloud-domain-security.yml
 - type: Website
   url: https://www.ubicloud.com/
+- type: SpectralRules
+  url: https://github.com/ubicloud/ubicloud/blob/33a6864a3236158c3e5e59dffd35ead66a5bd1d7/openapi/.spectral.yml
+- type: Documentation
+  url: https://www.ubicloud.com/docs/overview
+- type: APIReference
+  url: https://www.ubicloud.com/docs/api-reference/overview
+- type: GettingStarted
+  url: https://www.ubicloud.com/docs/machine-images/quickstart
+- type: Support
+  url: https://www.ubicloud.com/docs/about/support
+- type: Blog
+  url: https://www.ubicloud.com/blog
+- type: RSSFeed
+  url: https://www.ubicloud.com/rss/rss.xml
+- type: ChangeLog
+  url: https://www.ubicloud.com/docs/changelog
+- type: GitHubOrganization
+  url: https://github.com/ubicloud
+- type: GitHubRepository
+  url: https://github.com/ubicloud/ubicloud
+- type: Pricing
+  url: https://www.ubicloud.com/docs/about/pricing
+- type: SignUp
+  url: https://console.ubicloud.com/create-account
+- type: Login
+  url: https://console.ubicloud.com/login
+- type: TermsOfService
+  url: https://www.ubicloud.com/docs/about/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.ubicloud.com/docs/about/privacy-policy
+- type: StatusPage
+  url: https://status.ubicloud.com/
+- type: TrustCenter
+  url: https://trust.ubicloud.com
+- type: About
+  url: https://www.ubicloud.com/about-ubicloud
+- type: Contact
+  url: https://www.ubicloud.com/contact-us
+- type: X
+  url: https://twitter.com/UbicloudHQ
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ubicloud/
+
+apis:
+- aid: ubicloud:ubicloud-audit-log-api
+  name: Ubicloud Audit Log API
+  description: Audit Log Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Audit Log
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-audit-log-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-firewall-api
+  name: Ubicloud Firewall API
+  description: Firewall Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Firewall
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-firewall-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-firewall-rule-api
+  name: Ubicloud Firewall Rule API
+  description: Firewall Rule Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Firewall Rule
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-firewall-rule-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-github-api
+  name: Ubicloud GitHub API
+  description: GitHub Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - GitHub
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-github-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-inference-api-key-api
+  name: Ubicloud Inference Api Key API
+  description: Inference API Key Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Inference Api Key
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-inference-api-key-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-inference-endpoint-api
+  name: Ubicloud Inference Endpoint API
+  description: Inference Endpoint Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Inference Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-inference-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-kubernetes-cluster-api
+  name: Ubicloud Kubernetes Cluster API
+  description: Kubernetes Cluster Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Kubernetes Cluster
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-kubernetes-cluster-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-load-balancer-api
+  name: Ubicloud Load Balancer API
+  description: Load Balancer Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Load Balancer
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-load-balancer-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-machine-image-api
+  name: Ubicloud Machine Image API
+  description: Machine Image Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Machine Image
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-machine-image-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-postgres-database-api
+  name: Ubicloud Postgres Database API
+  description: Postgres Database Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Postgres Database
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-postgres-database-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-postgres-firewall-rule-api
+  name: Ubicloud Postgres Firewall Rule API
+  description: Postgres Firewall Rule Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Postgres Firewall Rule
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-postgres-firewall-rule-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-postgres-log-destination-api
+  name: Ubicloud Postgres Log Destination API
+  description: Postgres Log Destination
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Postgres Log Destination
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-postgres-log-destination-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-postgres-metric-destination-api
+  name: Ubicloud Postgres Metric Destination API
+  description: Postgres Metric Destination
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Postgres Metric Destination
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-postgres-metric-destination-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-private-location-api
+  name: Ubicloud Private Location API
+  description: Private Location Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Private Location
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-private-location-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-private-subnet-api
+  name: Ubicloud Private Subnet API
+  description: Private Subnet Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Private Subnet
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-private-subnet-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-project-api
+  name: Ubicloud Project API
+  description: Project Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Project
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-project-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-ssh-public-key-api
+  name: Ubicloud SSH Public Key API
+  description: SSH Public Key Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - SSH Public Key
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-ssh-public-key-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+- aid: ubicloud:ubicloud-virtual-machine-api
+  name: Ubicloud Virtual Machine API
+  description: Virtual Machine Operations
+  humanURL: https://www.ubicloud.com/docs/api-reference/overview
+  baseURL: https://api.ubicloud.com
+  tags:
+  - Virtual Machine
+  properties:
+  - type: OpenAPI
+    url: openapi/ubicloud-virtual-machine-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubicloud.com/docs/api-reference/overview
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-capabilities-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-firewall-rule-update-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-postgres-patch-config-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-schema.json
+  - type: JSONSchema
+    url: json-schema/ubicloud-ssh-public-key-update-schema.json
+x-enrichment:
+  date: '2026-10-09'
+  status: enriched
+  artifacts_added: 36
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic
+x-coverage:
+  state: covered
+  reason: identity-verified
+  detail: 'Enriched 2026-10-09: website and identity verified (verified) from the provider''s own pages; probed URLs below.'
+  evidence:
+  - url: https://www.ubicloud.com/
+    status: 200
+  - url: https://www.ubicloud.com/about-ubicloud
+    status: 200

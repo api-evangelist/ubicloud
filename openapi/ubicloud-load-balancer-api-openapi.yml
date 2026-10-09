@@ -1,0 +1,557 @@
+openapi: 3.2.0
+info:
+  title: Ubicloud Load Balancer API
+  version: 0.1.0
+  contact:
+    url: https://www.ubicloud.com/
+    email: support@ubicloud.com
+  license:
+    name: GNU Affero General Public License v3.0 (AGPL-3.0)
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
+  description: 'Operations tagged Load Balancer across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.ubicloud.com
+security:
+- BearerAuth: []
+tags:
+- description: Load Balancer Operations
+  name: Load Balancer
+paths:
+  /project/{project_id}/load-balancer:
+    get:
+      operationId: listLoadBalancers
+      summary: List all load balancers
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/start_after'
+      - $ref: '#/components/parameters/page_size'
+      - $ref: '#/components/parameters/order_column'
+      responses:
+        '200':
+          $ref: '#/components/responses/LoadBalancers'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/load-balancer:
+    get:
+      operationId: listLocationLoadBalancers
+      summary: List load balancers in a location
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/location'
+      - $ref: '#/components/parameters/start_after'
+      - $ref: '#/components/parameters/page_size'
+      - $ref: '#/components/parameters/order_column'
+      responses:
+        '200':
+          $ref: '#/components/responses/LoadBalancers'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/load_balancer_reference'
+    delete:
+      operationId: deleteLoadBalancer
+      summary: Delete a load balancer
+      responses:
+        '204':
+          $ref: '#/components/responses/Delete'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    get:
+      operationId: getLoadBalancerDetails
+      summary: Get load balancer details
+      responses:
+        '200':
+          $ref: '#/components/responses/LoadBalancer'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    patch:
+      operationId: patchLocationLoadBalancer
+      summary: Update a load balancer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                algorithm:
+                  description: Algorithm of the Load Balancer
+                  type: string
+                stack:
+                  description: Networking stack of the Load Balancer (ipv4, ipv6, or dual)
+                  type: string
+                dst_port:
+                  description: Destination port for the Load Balancer
+                  type: integer
+                health_check_endpoint:
+                  description: Health check endpoint URL
+                  type: string
+                src_port:
+                  description: Source port for the Load Balancer
+                  type: integer
+                vms:
+                  description: List of VM apids for the Load Balancer
+                  type: array
+                  items:
+                    type: string
+                cert_enabled:
+                  description: Whether SSL certificates are enabled for the Load Balancer
+                  type:
+                  - boolean
+                  - 'null'
+              additionalProperties: false
+              required:
+              - algorithm
+              - dst_port
+              - health_check_endpoint
+              - src_port
+              - vms
+      responses:
+        '200':
+          $ref: '#/components/responses/LoadBalancer'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    post:
+      operationId: createLocationLoadBalancer
+      summary: Create a new load balancer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                algorithm:
+                  description: Algorithm of the Load Balancer
+                  type: string
+                stack:
+                  description: Networking stack of the Load Balancer (ipv4, ipv6, or dual)
+                  type: string
+                dst_port:
+                  description: Destination port for the Load Balancer
+                  type: integer
+                health_check_endpoint:
+                  description: Health check endpoint URL
+                  type: string
+                health_check_protocol:
+                  description: Health check endpoint protocol
+                  type: string
+                private_subnet_id:
+                  description: ID of Private Subnet
+                  type: string
+                src_port:
+                  description: Source port for the Load Balancer
+                  type: integer
+                cert_enabled:
+                  description: Whether SSL certificates are enabled for the Load Balancer
+                  type: boolean
+              additionalProperties: false
+              required:
+              - algorithm
+              - dst_port
+              - health_check_protocol
+              - private_subnet_id
+              - src_port
+      responses:
+        '200':
+          $ref: '#/components/responses/LoadBalancer'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}/attach-vm:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/load_balancer_reference'
+    post:
+      operationId: attachVmLocationLoadBalancer
+      summary: Attach a VM to a load balancer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vm_id:
+                  description: Apid of VM to attach to Load Balancer
+                  type: string
+              additionalProperties: false
+              required:
+              - vm_id
+      responses:
+        '200':
+          $ref: '#/components/responses/LoadBalancer'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}/detach-vm:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/load_balancer_reference'
+    post:
+      operationId: detachVmLocationLoadBalancer
+      summary: Detach a VM from a load balancer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vm_id:
+                  description: Apid of VM to detach from Load Balancer
+                  type: string
+              additionalProperties: false
+              required:
+              - vm_id
+      responses:
+        '200':
+          $ref: '#/components/responses/LoadBalancer'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}/rename:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/load_balancer_reference'
+    post:
+      operationId: renameLoadBalancer
+      summary: Rename a load balancer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: New name for load balancer
+                  type: string
+              additionalProperties: false
+              required:
+              - name
+      responses:
+        '200':
+          $ref: '#/components/responses/LoadBalancer'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}/toggle-ssl-certificate:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/load_balancer_reference'
+    post:
+      operationId: toggleSslCertificateLoadBalancer
+      summary: Toggle the SSL certificate for a load balancer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cert_enabled:
+                  description: Whether SSL certificates are enabled for the Load Balancer
+                  type: boolean
+              additionalProperties: false
+              required:
+              - cert_enabled
+      responses:
+        '200':
+          $ref: '#/components/responses/LoadBalancer'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Load Balancer
+    servers:
+    - url: https://api.ubicloud.com
+components:
+  responses:
+    Delete:
+      description: An empty response after successful resource delete
+    LoadBalancer:
+      description: A Load Balancer
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            allOf:
+            - $ref: '#/components/schemas/LoadBalancer'
+            - properties:
+                subnet:
+                  description: Subnet of the Load Balancer
+                  type: string
+                vms:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Vm'
+              additionalProperties: false
+              required:
+              - location
+              - subnet
+              - vms
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    LoadBalancers:
+      description: A list of Load Balancers
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoadBalancer'
+            additionalProperties: false
+            required:
+            - count
+            - items
+  parameters:
+    location:
+      description: The Ubicloud location/region
+      in: path
+      name: location
+      required: true
+      schema:
+        type: string
+        example: eu-central-h1
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    load_balancer_reference:
+      description: Load balancer ID or name
+      examples:
+        id:
+          value: 1bn30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: load-balancer-name
+      in: path
+      name: load_balancer_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+    order_column:
+      description: Pagination - Order column
+      in: query
+      name: order_column
+      required: false
+      schema:
+        type: string
+        default: id
+    start_after:
+      description: Pagination - Start after
+      in: query
+      name: start_after
+      required: false
+      schema:
+        type: string
+    page_size:
+      description: Pagination - Page size
+      in: query
+      name: page_size
+      required: false
+      schema:
+        type: integer
+        default: 10
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: There was an error logging in
+            type:
+              type: string
+              example: InvalidCredentials
+            details:
+              type:
+              - object
+              - 'null'
+          required:
+          - code
+          - message
+          - type
+      additionalProperties: false
+      required:
+      - error
+    Vm:
+      type: object
+      properties:
+        boot_image:
+          description: Boot image of the VM
+          type: string
+        id:
+          description: ID of the VM
+          type: string
+          example: vmhfy8gff8c67hasb0eez2k1pd
+          pattern: ^vm[0-9a-hj-km-np-tv-z]{24}$
+        ip4:
+          description: IPv4 address
+          type:
+          - string
+          - 'null'
+          format: ipv4
+        ip4_enabled:
+          description: Whether IPv4 is enabled
+          type: boolean
+        ip6:
+          description: IPv6 address
+          type:
+          - string
+          - 'null'
+          format: ipv6
+        location:
+          description: Location of the VM
+          type: string
+          example: eu-central-h1
+        maintenance_window_start_at:
+          description: Maintenance window start time
+          type:
+          - integer
+          - 'null'
+        name:
+          description: Name of the VM
+          type: string
+          example: my-vm-name
+        size:
+          description: Size of the underlying VM
+          type: string
+        state:
+          description: State of the VM
+          type: string
+        storage_size_gib:
+          description: Storage size in GiB
+          type: integer
+        unix_user:
+          description: Unix user of the VM
+          type: string
+      additionalProperties: false
+      required:
+      - boot_image
+      - id
+      - ip4
+      - ip4_enabled
+      - ip6
+      - location
+      - maintenance_window_start_at
+      - name
+      - size
+      - state
+      - storage_size_gib
+      - unix_user
+      x-go-name: VmSchema
+    Reference:
+      description: Resource ID or name
+      type: string
+      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+    LoadBalancer:
+      type: object
+      properties:
+        algorithm:
+          description: Algorithm of the Load Balancer
+          type: string
+        stack:
+          description: Networking stack of the Load Balancer (ipv4, ipv6, or dual)
+          type: string
+        dst_port:
+          description: Destination port for the Load Balancer
+          type: integer
+        health_check_endpoint:
+          description: Health check endpoint URL
+          type: string
+        health_check_protocol:
+          description: Health check endpoint protocol
+          type: string
+        hostname:
+          description: Hostname of the Load Balancer
+          type: string
+        id:
+          description: ID of the Load Balancer
+          type: string
+          example: 1bhw8r4pn73t1m5f7rn7a5pej2
+          pattern: ^1b[0-9a-hj-km-np-tv-z]{24}$
+        location:
+          description: Location of the Load Balancer
+          type: string
+        name:
+          description: Name of the Load Balancer
+          type: string
+        src_port:
+          description: Source port for the Load Balancer
+          type: integer
+        cert_enabled:
+          description: Whether SSL certificate is enabled
+          type: boolean
+      additionalProperties: false
+      required:
+      - algorithm
+      - dst_port
+      - health_check_endpoint
+      - health_check_protocol
+      - hostname
+      - id
+      - name
+      - src_port
+      x-go-name: LoadBalancerSchema
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+x-refined-from:
+- ubicloud-openapi.yml
+- ubicloud-openapi.yml

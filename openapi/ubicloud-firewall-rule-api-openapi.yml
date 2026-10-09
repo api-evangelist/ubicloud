@@ -1,0 +1,323 @@
+openapi: 3.2.0
+info:
+  title: Ubicloud Firewall Rule API
+  version: 0.1.0
+  contact:
+    url: https://www.ubicloud.com/
+    email: support@ubicloud.com
+  license:
+    name: GNU Affero General Public License v3.0 (AGPL-3.0)
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
+  description: 'Operations tagged Firewall Rule across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.ubicloud.com
+security:
+- BearerAuth: []
+tags:
+- description: Firewall Rule Operations
+  name: Firewall Rule
+paths:
+  /project/{project_id}/location/{location}/firewall/{firewall_reference}/firewall-rule:
+    parameters:
+    - $ref: '#/components/parameters/firewall_reference'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/project_id'
+    post:
+      operationId: createLocationFirewallRule
+      summary: Create a new firewall rule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cidr:
+                  description: CIDR or private subnet id or name to allow
+                  type: string
+                firewall_id:
+                  type: string
+                port_range:
+                  description: Port range to allow
+                  type: string
+                protocol:
+                  description: Protocol to allow (tcp or udp, default tcp)
+                  type: string
+                description:
+                  description: Description to use for the firewall rule
+                  type: string
+                project_id:
+                  type: string
+              additionalProperties: false
+              required:
+              - cidr
+      responses:
+        '200':
+          $ref: '#/components/responses/FirewallRuleOrRules'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall Rule
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/firewall/{firewall_reference}/firewall-rule/{firewall_rule_id}:
+    parameters:
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/firewall_reference'
+    - $ref: '#/components/parameters/firewall_rule_id'
+    delete:
+      operationId: deleteLocationFirewallFirewallRule
+      summary: Delete a firewall rule
+      responses:
+        '204':
+          $ref: '#/components/responses/Delete'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall Rule
+    get:
+      operationId: getLocationFirewallFirewallRuleDetails
+      summary: Get firewall rule details
+      responses:
+        '200':
+          $ref: '#/components/responses/FirewallRule'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall Rule
+    patch:
+      operationId: modifyFirewallRule
+      summary: Modify a firewall rule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FirewallRuleUpdate'
+      responses:
+        '200':
+          $ref: '#/components/responses/FirewallRule'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall Rule
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/firewall-rule/{firewall_rule_id}:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/postgres_database_reference'
+    - $ref: '#/components/parameters/firewall_rule_id'
+    delete:
+      operationId: deleteLocationPostgresFirewallRule
+      summary: Delete a PostgreSQL firewall rule
+      responses:
+        '204':
+          $ref: '#/components/responses/Delete'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Firewall Rule
+    servers:
+    - url: https://api.ubicloud.com
+components:
+  schemas:
+    FirewallRuleUpdate:
+      anyOf:
+      - type: object
+        properties:
+          cidr:
+            description: CIDR of the firewall rule
+            type: string
+          port_range:
+            description: Port range of the firewall rule
+            type: string
+          protocol:
+            description: Protocol of the firewall rule (tcp or udp)
+            type: string
+          description:
+            description: Description of the firewall rule
+            type: string
+        additionalProperties: false
+        required:
+        - cidr
+      - type: object
+        properties:
+          port_range:
+            description: Port range of the firewall rule
+            type: string
+          protocol:
+            description: Protocol of the firewall rule (tcp or udp)
+            type: string
+          description:
+            description: Description of the firewall rule
+            type: string
+        additionalProperties: false
+        required:
+        - port_range
+      - type: object
+        properties:
+          protocol:
+            description: Protocol of the firewall rule (tcp or udp)
+            type: string
+          description:
+            description: Description of the firewall rule
+            type: string
+        additionalProperties: false
+        required:
+        - protocol
+      - type: object
+        properties:
+          description:
+            description: Description of the firewall rule
+            type: string
+        additionalProperties: false
+        required:
+        - description
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: There was an error logging in
+            type:
+              type: string
+              example: InvalidCredentials
+            details:
+              type:
+              - object
+              - 'null'
+          required:
+          - code
+          - message
+          - type
+      additionalProperties: false
+      required:
+      - error
+    FirewallRule:
+      type: object
+      properties:
+        cidr:
+          description: CIDR of the firewall rule
+          type: string
+        id:
+          description: ID of the firewall rule
+          type: string
+          example: fraz0q3vbrpa7pkg7zbmah9csn
+          pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
+        port_range:
+          description: Port range of the firewall rule
+          type: string
+        protocol:
+          description: Protocol of the firewall rule (tcp or udp)
+          type: string
+          enum:
+          - tcp
+          - udp
+        description:
+          description: Description of the firewall rule
+          type: string
+      additionalProperties: false
+      required:
+      - cidr
+      - id
+      - port_range
+      - protocol
+      - description
+    Reference:
+      description: Resource ID or name
+      type: string
+      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+  responses:
+    Delete:
+      description: An empty response after successful resource delete
+    FirewallRuleOrRules:
+      description: A Firewall Rule or array of them
+      content:
+        application/json:
+          schema:
+            anyOf:
+            - $ref: '#/components/schemas/FirewallRule'
+            - type: array
+              items:
+                $ref: '#/components/schemas/FirewallRule'
+    FirewallRule:
+      description: A Firewall Rule
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FirewallRule'
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    postgres_database_reference:
+      description: Postgres database ID or name
+      examples:
+        id:
+          value: pgn30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: postgres-database-name
+      in: path
+      name: postgres_database_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+    location:
+      description: The Ubicloud location/region
+      in: path
+      name: location
+      required: true
+      schema:
+        type: string
+        example: eu-central-h1
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    firewall_rule_id:
+      description: ID of the firewall rule
+      in: path
+      name: firewall_rule_id
+      required: true
+      schema:
+        type: string
+        example: fraz0q3vbrpa7pkg7zbmah9csn
+        pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
+    firewall_reference:
+      description: Firewall ID or name
+      examples:
+        id:
+          value: fwn30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: firewall-name
+      in: path
+      name: firewall_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+x-refined-from:
+- ubicloud-openapi.yml
+- ubicloud-openapi.yml

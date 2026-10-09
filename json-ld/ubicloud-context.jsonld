@@ -1,0 +1,489 @@
+{
+  "@context": {
+    "@vocab": "https://ubicloud.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "ubicloud": "https://ubicloud.com/schema#",
+    "MaintenanceWindowDay": "ubicloud:MaintenanceWindowDay",
+    "AuditLog": "ubicloud:AuditLog",
+    "at": {
+      "@id": "ubicloud:at",
+      "@type": "xsd:dateTime"
+    },
+    "action": {
+      "@id": "ubicloud:action",
+      "@type": "xsd:string"
+    },
+    "subject_id": {
+      "@id": "ubicloud:subject_id",
+      "@type": "xsd:string"
+    },
+    "subject_name": {
+      "@id": "ubicloud:subject_name",
+      "@type": "xsd:string"
+    },
+    "object_ids": {
+      "@id": "ubicloud:object_ids",
+      "@container": "@list"
+    },
+    "Error": "ubicloud:Error",
+    "error": {
+      "@id": "ubicloud:error"
+    },
+    "PostgresConfig": "ubicloud:PostgresConfig",
+    "pg_config": {
+      "@id": "ubicloud:pg_config"
+    },
+    "pgbouncer_config": {
+      "@id": "ubicloud:pgbouncer_config"
+    },
+    "default_pg_config": {
+      "@id": "ubicloud:default_pg_config"
+    },
+    "message": {
+      "@id": "ubicloud:message",
+      "@type": "xsd:string"
+    },
+    "SshPublicKeyCreate": "ubicloud:SshPublicKeyCreate",
+    "name": {
+      "@id": "ubicloud:name",
+      "@type": "xsd:string"
+    },
+    "public_key": {
+      "@id": "ubicloud:public_key",
+      "@type": "xsd:string"
+    },
+    "CertAuthUserRequest": "ubicloud:CertAuthUserRequest",
+    "CertAuthUserList": "ubicloud:CertAuthUserList",
+    "items": {
+      "@id": "ubicloud:items",
+      "@container": "@list"
+    },
+    "PostgresTag": "ubicloud:PostgresTag",
+    "key": {
+      "@id": "ubicloud:key",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "ubicloud:value",
+      "@type": "xsd:string"
+    },
+    "PrivateLocation": "ubicloud:PrivateLocation",
+    "id": {
+      "@id": "ubicloud:id",
+      "@type": "xsd:string"
+    },
+    "ui_name": {
+      "@id": "ubicloud:ui_name",
+      "@type": "xsd:string"
+    },
+    "provider": {
+      "@id": "ubicloud:provider",
+      "@type": "xsd:string"
+    },
+    "path": {
+      "@id": "ubicloud:path",
+      "@type": "xsd:string"
+    },
+    "GithubCacheEntry": "ubicloud:GithubCacheEntry",
+    "installation_name": {
+      "@id": "ubicloud:installation_name",
+      "@type": "xsd:string"
+    },
+    "repository_name": {
+      "@id": "ubicloud:repository_name",
+      "@type": "xsd:string"
+    },
+    "scope": {
+      "@id": "ubicloud:scope",
+      "@type": "xsd:string"
+    },
+    "size": {
+      "@id": "ubicloud:size",
+      "@type": "xsd:integer"
+    },
+    "created_at": {
+      "@id": "ubicloud:created_at",
+      "@type": "xsd:dateTime"
+    },
+    "last_accessed_at": {
+      "@id": "ubicloud:last_accessed_at",
+      "@type": "xsd:dateTime"
+    },
+    "GithubRepository": "ubicloud:GithubRepository",
+    "GithubInstallation": "ubicloud:GithubInstallation",
+    "Firewall": "ubicloud:Firewall",
+    "description": {
+      "@id": "ubicloud:description",
+      "@type": "xsd:string"
+    },
+    "firewall_rules": {
+      "@id": "ubicloud:firewall_rules",
+      "@container": "@list"
+    },
+    "location": {
+      "@id": "ubicloud:location",
+      "@type": "xsd:string"
+    },
+    "FirewallRule": "ubicloud:FirewallRule",
+    "cidr": {
+      "@id": "ubicloud:cidr",
+      "@type": "xsd:string"
+    },
+    "port_range": {
+      "@id": "ubicloud:port_range",
+      "@type": "xsd:string"
+    },
+    "protocol": {
+      "@id": "ubicloud:protocol",
+      "@type": "xsd:string"
+    },
+    "SshPublicKey": "ubicloud:SshPublicKey",
+    "InferenceApiKey": "ubicloud:InferenceApiKey",
+    "InferenceEndpointPrice": "ubicloud:InferenceEndpointPrice",
+    "per_million_prompt_tokens": {
+      "@id": "ubicloud:per_million_prompt_tokens",
+      "@type": "xsd:decimal"
+    },
+    "per_million_completion_tokens": {
+      "@id": "ubicloud:per_million_completion_tokens",
+      "@type": "xsd:decimal"
+    },
+    "InferenceEndpoint": "ubicloud:InferenceEndpoint",
+    "display_name": {
+      "@id": "ubicloud:display_name",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "ubicloud:url",
+      "@type": "xsd:string"
+    },
+    "model_name": {
+      "@id": "ubicloud:model_name",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "ubicloud:tags"
+    },
+    "price": {
+      "@id": "ubicloud:price",
+      "@type": "@id"
+    },
+    "LoadBalancer": "ubicloud:LoadBalancer",
+    "algorithm": {
+      "@id": "ubicloud:algorithm",
+      "@type": "xsd:string"
+    },
+    "stack": {
+      "@id": "ubicloud:stack",
+      "@type": "xsd:string"
+    },
+    "dst_port": {
+      "@id": "ubicloud:dst_port",
+      "@type": "xsd:integer"
+    },
+    "health_check_endpoint": {
+      "@id": "ubicloud:health_check_endpoint",
+      "@type": "xsd:string"
+    },
+    "health_check_protocol": {
+      "@id": "ubicloud:health_check_protocol",
+      "@type": "xsd:string"
+    },
+    "hostname": {
+      "@id": "ubicloud:hostname",
+      "@type": "xsd:string"
+    },
+    "src_port": {
+      "@id": "ubicloud:src_port",
+      "@type": "xsd:integer"
+    },
+    "cert_enabled": {
+      "@id": "ubicloud:cert_enabled",
+      "@type": "xsd:boolean"
+    },
+    "MachineImage": "ubicloud:MachineImage",
+    "arch": {
+      "@id": "ubicloud:arch",
+      "@type": "xsd:string"
+    },
+    "latest_version": {
+      "@id": "ubicloud:latest_version",
+      "@type": "xsd:string"
+    },
+    "MachineImageVersion": "ubicloud:MachineImageVersion",
+    "version": {
+      "@id": "ubicloud:version",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "ubicloud:state",
+      "@type": "xsd:string"
+    },
+    "actual_size_mib": {
+      "@id": "ubicloud:actual_size_mib",
+      "@type": "xsd:integer"
+    },
+    "archive_size_mib": {
+      "@id": "ubicloud:archive_size_mib",
+      "@type": "xsd:integer"
+    },
+    "latest": {
+      "@id": "ubicloud:latest",
+      "@type": "xsd:boolean"
+    },
+    "Nic": "ubicloud:Nic",
+    "private_ipv4": {
+      "@id": "ubicloud:private_ipv4",
+      "@type": "xsd:string"
+    },
+    "private_ipv6": {
+      "@id": "ubicloud:private_ipv6",
+      "@type": "xsd:string"
+    },
+    "vm_name": {
+      "@id": "ubicloud:vm_name",
+      "@type": "xsd:string"
+    },
+    "PostgresDatabase": "ubicloud:PostgresDatabase",
+    "flavor": {
+      "@id": "ubicloud:flavor",
+      "@type": "xsd:string"
+    },
+    "ha_type": {
+      "@id": "ubicloud:ha_type",
+      "@type": "xsd:string"
+    },
+    "target_server_count": {
+      "@id": "ubicloud:target_server_count",
+      "@type": "xsd:integer"
+    },
+    "storage_size_gib": {
+      "@id": "ubicloud:storage_size_gib",
+      "@type": "xsd:integer"
+    },
+    "target_storage_size_gib": {
+      "@id": "ubicloud:target_storage_size_gib",
+      "@type": "xsd:integer"
+    },
+    "target_version": {
+      "@id": "ubicloud:target_version",
+      "@type": "xsd:string"
+    },
+    "vm_size": {
+      "@id": "ubicloud:vm_size",
+      "@type": "xsd:string"
+    },
+    "target_vm_size": {
+      "@id": "ubicloud:target_vm_size",
+      "@type": "xsd:string"
+    },
+    "ca_certificates": {
+      "@id": "ubicloud:ca_certificates",
+      "@type": "xsd:string"
+    },
+    "maintenance_window_start_at": {
+      "@id": "ubicloud:maintenance_window_start_at",
+      "@type": "xsd:integer"
+    },
+    "maintenance_window_days": {
+      "@id": "ubicloud:maintenance_window_days",
+      "@container": "@list"
+    },
+    "read_replica": {
+      "@id": "ubicloud:read_replica",
+      "@type": "xsd:boolean"
+    },
+    "parent": {
+      "@id": "ubicloud:parent",
+      "@type": "xsd:string"
+    },
+    "fallback_active": {
+      "@id": "ubicloud:fallback_active",
+      "@type": "xsd:boolean"
+    },
+    "PostgresDatabaseLogEntry": "ubicloud:PostgresDatabaseLogEntry",
+    "timestamp": {
+      "@id": "ubicloud:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "stream_name": {
+      "@id": "ubicloud:stream_name",
+      "@type": "xsd:string"
+    },
+    "severity_level": {
+      "@id": "ubicloud:severity_level",
+      "@type": "xsd:string"
+    },
+    "server_ubid": {
+      "@id": "ubicloud:server_ubid",
+      "@type": "xsd:string"
+    },
+    "server_role": {
+      "@id": "ubicloud:server_role",
+      "@type": "xsd:string"
+    },
+    "context": {
+      "@id": "ubicloud:context"
+    },
+    "ResourceMetrics": "ubicloud:ResourceMetrics",
+    "metrics": {
+      "@id": "ubicloud:metrics",
+      "@container": "@list"
+    },
+    "PostgresServer": "ubicloud:PostgresServer",
+    "role": {
+      "@id": "ubicloud:role",
+      "@type": "xsd:string"
+    },
+    "synchronization_status": {
+      "@id": "ubicloud:synchronization_status",
+      "@type": "xsd:string"
+    },
+    "PostgresBackup": "ubicloud:PostgresBackup",
+    "last_modified": {
+      "@id": "ubicloud:last_modified",
+      "@type": "xsd:dateTime"
+    },
+    "PostgresBackupCredentials": "ubicloud:PostgresBackupCredentials",
+    "bucket": {
+      "@id": "ubicloud:bucket",
+      "@type": "xsd:string"
+    },
+    "endpoint": {
+      "@id": "ubicloud:endpoint",
+      "@type": "xsd:string"
+    },
+    "region": {
+      "@id": "ubicloud:region",
+      "@type": "xsd:string"
+    },
+    "access_key_id": {
+      "@id": "ubicloud:access_key_id",
+      "@type": "xsd:string"
+    },
+    "secret_access_key": {
+      "@id": "ubicloud:secret_access_key",
+      "@type": "xsd:string"
+    },
+    "session_token": {
+      "@id": "ubicloud:session_token",
+      "@type": "xsd:string"
+    },
+    "expiration": {
+      "@id": "ubicloud:expiration",
+      "@type": "xsd:dateTime"
+    },
+    "PostgresFirewallRule": "ubicloud:PostgresFirewallRule",
+    "port": {
+      "@id": "ubicloud:port",
+      "@type": "xsd:integer"
+    },
+    "PostgresLogDestination": "ubicloud:PostgresLogDestination",
+    "type": {
+      "@id": "ubicloud:type",
+      "@type": "xsd:string"
+    },
+    "PrivateSubnet": "ubicloud:PrivateSubnet",
+    "firewalls": {
+      "@id": "ubicloud:firewalls",
+      "@container": "@list"
+    },
+    "net4": {
+      "@id": "ubicloud:net4",
+      "@type": "xsd:string"
+    },
+    "net6": {
+      "@id": "ubicloud:net6",
+      "@type": "xsd:string"
+    },
+    "nics": {
+      "@id": "ubicloud:nics",
+      "@container": "@list"
+    },
+    "Project": "ubicloud:Project",
+    "Vm": "ubicloud:Vm",
+    "boot_image": {
+      "@id": "ubicloud:boot_image",
+      "@type": "xsd:string"
+    },
+    "ip4": {
+      "@id": "ubicloud:ip4",
+      "@type": "xsd:string"
+    },
+    "ip4_enabled": {
+      "@id": "ubicloud:ip4_enabled",
+      "@type": "xsd:boolean"
+    },
+    "ip6": {
+      "@id": "ubicloud:ip6",
+      "@type": "xsd:string"
+    },
+    "unix_user": {
+      "@id": "ubicloud:unix_user",
+      "@type": "xsd:string"
+    },
+    "RunCommand": "ubicloud:RunCommand",
+    "status": {
+      "@id": "ubicloud:status",
+      "@type": "xsd:string"
+    },
+    "output": {
+      "@id": "ubicloud:output",
+      "@type": "xsd:string"
+    },
+    "KubernetesCluster": "ubicloud:KubernetesCluster",
+    "cp_node_count": {
+      "@id": "ubicloud:cp_node_count",
+      "@type": "xsd:integer"
+    },
+    "cp_vms": {
+      "@id": "ubicloud:cp_vms",
+      "@container": "@list"
+    },
+    "display_state": {
+      "@id": "ubicloud:display_state",
+      "@type": "xsd:string"
+    },
+    "node_size": {
+      "@id": "ubicloud:node_size",
+      "@type": "xsd:string"
+    },
+    "nodepools": {
+      "@id": "ubicloud:nodepools",
+      "@container": "@list"
+    },
+    "services_load_balancer_url": {
+      "@id": "ubicloud:services_load_balancer_url",
+      "@type": "xsd:string"
+    },
+    "KubernetesNodepool": "ubicloud:KubernetesNodepool",
+    "kubernetes_cluster_id": {
+      "@id": "ubicloud:kubernetes_cluster_id",
+      "@type": "xsd:string"
+    },
+    "node_count": {
+      "@id": "ubicloud:node_count",
+      "@type": "xsd:integer"
+    },
+    "vms": {
+      "@id": "ubicloud:vms",
+      "@container": "@list"
+    },
+    "PostgresCapabilities": "ubicloud:PostgresCapabilities",
+    "option_tree": {
+      "@id": "ubicloud:option_tree"
+    },
+    "metadata": {
+      "@id": "ubicloud:metadata"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Ubicloud API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Ubicloud's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-09) from openapi/ubicloud-openapi.yml.",
+  "dcterms:created": "2026-10-09",
+  "dcterms:source": [
+    "openapi/ubicloud-openapi.yml"
+  ]
+}

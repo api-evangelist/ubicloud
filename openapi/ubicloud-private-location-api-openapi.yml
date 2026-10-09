@@ -1,0 +1,235 @@
+openapi: 3.2.0
+info:
+  title: Ubicloud Private Location API
+  version: 0.1.0
+  contact:
+    url: https://www.ubicloud.com/
+    email: support@ubicloud.com
+  license:
+    name: GNU Affero General Public License v3.0 (AGPL-3.0)
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
+  description: 'Operations tagged Private Location across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.ubicloud.com
+security:
+- BearerAuth: []
+tags:
+- description: Private Location Operations
+  name: Private Location
+paths:
+  /project/{project_id}/private-location:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    get:
+      operationId: getPrivateLocations
+      summary: List all private locations
+      responses:
+        '200':
+          $ref: '#/components/responses/PrivateLocations'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Private Location
+    post:
+      operationId: createPrivateLocation
+      summary: Create a new private location
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Name of the private location
+                  type: string
+                provider_location_name:
+                  description: Provider location name of the private location
+                  type: string
+                  enum:
+                  - us-west-2
+                  - us-east-1
+                  - us-east-2
+                  - ap-southeast-2
+                  - eu-west-1
+                access_key:
+                  description: Access key for the private location
+                  type: string
+                secret_key:
+                  description: Secret key for the private location
+                  type: string
+              additionalProperties: false
+              required:
+              - name
+              - provider_location_name
+              - access_key
+              - secret_key
+      responses:
+        '200':
+          $ref: '#/components/responses/PrivateLocation'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Private Location
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/private-location/{private_location_name}:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/private_location_name'
+    delete:
+      operationId: deletePrivateLocation
+      summary: Delete a private location
+      responses:
+        '204':
+          $ref: '#/components/responses/Delete'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Private Location
+    get:
+      operationId: getPrivateLocationDetails
+      summary: Get private location details
+      responses:
+        '200':
+          $ref: '#/components/responses/PrivateLocation'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Private Location
+    post:
+      operationId: updatePrivateLocation
+      summary: Update a private location
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Name of the private location
+                  type: string
+              additionalProperties: false
+              required:
+              - name
+      responses:
+        '200':
+          $ref: '#/components/responses/PrivateLocation'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Private Location
+    servers:
+    - url: https://api.ubicloud.com
+components:
+  responses:
+    Delete:
+      description: An empty response after successful resource delete
+    PrivateLocation:
+      description: A Private Location
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PrivateLocation'
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PrivateLocations:
+      description: A list of Private Locations
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrivateLocation'
+            additionalProperties: false
+            required:
+            - count
+            - items
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: There was an error logging in
+            type:
+              type: string
+              example: InvalidCredentials
+            details:
+              type:
+              - object
+              - 'null'
+          required:
+          - code
+          - message
+          - type
+      additionalProperties: false
+      required:
+      - error
+    PrivateLocation:
+      type: object
+      properties:
+        id:
+          description: ID of the private location
+          type: string
+        name:
+          description: Name of the private location
+          type: string
+        ui_name:
+          description: UI name of the private location
+          type: string
+        provider:
+          description: Name of the private location
+          type: string
+        path:
+          description: Path of the private location
+          type: string
+      additionalProperties: false
+      required:
+      - id
+      - name
+      - provider
+      - path
+      - ui_name
+  parameters:
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    private_location_name:
+      description: Name of the private location
+      in: path
+      name: private_location_name
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+x-refined-from:
+- ubicloud-openapi.yml
+- ubicloud-openapi.yml

@@ -1,0 +1,7 @@
+generated: '2026-10-09'
+method: none
+source: https://www.ubicloud.com/docs/llms.txt
+name: Ubicloud Rate Limits
+limit_count: 0
+limits: []
+note: No API rate limits, 429 response or rate-limit headers are documented. The API overview's status-code table (/docs/api-reference/overview) lists 200, 204, 400, 401, 403, 404, 409, 419 and 500 only; a search of the llms.txt index and the overview, CLI, support and security pages found no rate-limit page.

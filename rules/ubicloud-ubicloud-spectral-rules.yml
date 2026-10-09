@@ -1,0 +1,50 @@
+# harvested from https://github.com/ubicloud/ubicloud/blob/33a6864a3236158c3e5e59dffd35ead66a5bd1d7/openapi/.spectral.yml on 2026-10-09 — a Spectral ruleset published in the provider's own GitHub repository (ubicloud/ubicloud); found by GitHub code search, fetched verbatim
+x-method: harvested
+x-stamped: 2026-10-09
+x-source-url: https://github.com/ubicloud/ubicloud/blob/33a6864a3236158c3e5e59dffd35ead66a5bd1d7/openapi/.spectral.yml
+extends: ["spectral:oas"]
+rules:
+  operation-description: off
+  additional-properties-with-properties:
+    description: "Any element with properties also has additionalProperties false"
+    given: $..[?(@ && @.properties)]
+    severity: error
+    then:
+      - field: additionalProperties
+        function: defined
+      - field: additionalProperties
+        function: falsy
+  responses-required-with-properties:
+    description: "Any responses schema with properties also has required array"
+    given: $.paths..responses..[?(@ && @.properties)]
+    severity: error
+    then:
+      - field: required
+        function: schema
+        functionOptions:
+          schema:
+            type: array
+            items:
+              type: string
+  schemas-required-with-properties:
+    description: "Any components/schemas schema with properties also has required array"
+    given: $.components.schemas..[?(@ && @.properties)]
+    severity: error
+    then:
+      - field: required
+        function: schema
+        functionOptions:
+          schema:
+            type: array
+            items:
+              type: string
+  default-for-responses:
+    description: "Responses have default value `$ref: '#/components/responses/Error'`"
+    given: $.paths[*][*][responses]
+    severity: error
+    then:
+      field: default
+      function: schema
+      functionOptions:
+        schema:
+          $ref: '#/components/responses/Error'

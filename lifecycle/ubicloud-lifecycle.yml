@@ -1,0 +1,22 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.ubicloud.com/docs/api-reference/overview
+name: Ubicloud Lifecycle
+versioning:
+  scheme: none published
+  api_version: 0.1.0
+  maturity: beta
+  evidence: Ubicloud APIs (Beta) allow users to programmatically manage their resources.
+  note: No URL, header or date-based API versioning is documented; the OpenAPI info.version is 0.1.0 and the single server is https://api.ubicloud.com.
+deprecation:
+  policy: none published
+  sunset_headers: not documented
+  deprecated_operations:
+  - operationId: promotePostgresDatabase
+    path: POST /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/promote
+    docs: https://www.ubicloud.com/docs/api-reference/postgres-database/promote-a-postgresql-read-replica-deprecated-use-promote-read-replica
+    note: Marked deprecated in the OpenAPI; docs title says "Deprecated, use promote-read-replica".
+status_page: https://status.ubicloud.com/
+sla: No SLA is published; the support page says "If you need guaranteed response times or other enterprise level features, please contact us through email."
+support: https://www.ubicloud.com/docs/about/support
+changelog: https://www.ubicloud.com/docs/changelog/2026-09

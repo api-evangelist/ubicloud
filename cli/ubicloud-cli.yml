@@ -1,0 +1,26 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.ubicloud.com/docs/quick-start/cli
+name: ubi
+description: Ubicloud provides a command line interface named `ubi`, a small open-source Go program that transmits commands to Ubicloud; it does not automatically update itself.
+repository: https://github.com/ubicloud/cli
+source_code: https://github.com/ubicloud/ubicloud/blob/main/cli/ubi.go
+install:
+- method: download
+  detail: tar.gz/zip single-file executable from https://github.com/ubicloud/cli/releases (Linux amd64/386/arm64, macOS arm64/amd64, Windows amd64/arm64)
+- method: homebrew
+  command: brew install ubicloud/cli/ubi
+authentication:
+  env: UBI_TOKEN
+  detail: personal access token created on the project Tokens page
+commands:
+- {name: ai, description: Manage AI features, examples: ['ubi ai api-key list', 'ubi ai api-key create']}
+- {name: fw, description: Manage firewalls, examples: ['ubi fw list', 'ubi fw location/fw-name create', 'ubi fw (location/fw-name | fw-id) add-rule cidr']}
+- {name: kc, description: Manage Kubernetes clusters, examples: ['ubi kc list', 'ubi kc location/kc-name create']}
+- {name: lb, description: Manage load balancers}
+- {name: pg, description: Manage PostgreSQL databases}
+- {name: ps, description: Manage private subnets, examples: ['ubi ps list', 'ubi ps location/ps-name create', 'ubi ps ps-id connect']}
+- {name: vm, description: Manage virtual machines, examples: ['ubi vm list']}
+- {name: help, description: Get command help, examples: ['ubi help -ru']}
+- {name: version, description: Display CLI program version}
+output_options: ['-f/--fields', '-N/--no-headers']

@@ -1,0 +1,382 @@
+openapi: 3.2.0
+info:
+  title: Ubicloud GitHub API
+  version: 0.1.0
+  contact:
+    url: https://www.ubicloud.com/
+    email: support@ubicloud.com
+  license:
+    name: GNU Affero General Public License v3.0 (AGPL-3.0)
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
+  description: 'Operations tagged GitHub across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.ubicloud.com
+security:
+- BearerAuth: []
+tags:
+- description: GitHub Operations
+  name: Github
+paths:
+  /project/{project_id}/github:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    get:
+      operationId: getGithubInstallations
+      summary: List all GitHub installations
+      responses:
+        '200':
+          $ref: '#/components/responses/GithubInstallations'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Github
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/github/{github_installation_reference}:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/github_installation_reference'
+    get:
+      operationId: getGithubInstallation
+      summary: Get GitHub installation details
+      responses:
+        '200':
+          $ref: '#/components/responses/GithubInstallation'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Github
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/github/{github_installation_reference}/repository:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/github_installation_reference'
+    get:
+      operationId: getGithubInstallationRepositories
+      summary: List repositories for a GitHub installation
+      responses:
+        '200':
+          $ref: '#/components/responses/GithubRepositories'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Github
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/github/{github_installation_reference}/repository/{github_repository_reference}:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/github_installation_reference'
+    - $ref: '#/components/parameters/github_repository_reference'
+    get:
+      operationId: getGithubRepository
+      summary: Get GitHub repository details
+      responses:
+        '200':
+          $ref: '#/components/responses/GithubRepository'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Github
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/github/{github_installation_reference}/repository/{github_repository_reference}/cache:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/github_installation_reference'
+    - $ref: '#/components/parameters/github_repository_reference'
+    get:
+      operationId: getGithubCacheEntries
+      summary: List all cache entries for a GitHub repository
+      responses:
+        '200':
+          $ref: '#/components/responses/GithubCacheEntries'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Github
+    delete:
+      operationId: deleteAllGithubCacheEntries
+      summary: Delete all cache entries for a GitHub repository
+      responses:
+        '204':
+          $ref: '#/components/responses/Delete'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Github
+    servers:
+    - url: https://api.ubicloud.com
+  ? /project/{project_id}/github/{github_installation_reference}/repository/{github_repository_reference}/cache/{github_cache_entry_id}
+  : parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/github_installation_reference'
+    - $ref: '#/components/parameters/github_repository_reference'
+    - $ref: '#/components/parameters/github_cache_entry_id'
+    get:
+      operationId: getGithubCacheEntry
+      summary: Get cache entry details
+      responses:
+        '200':
+          $ref: '#/components/responses/GithubCacheEntry'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Github
+    delete:
+      operationId: deleteGithubCacheEntry
+      summary: Delete a cache entry
+      responses:
+        '204':
+          $ref: '#/components/responses/Delete'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Github
+    servers:
+    - url: https://api.ubicloud.com
+components:
+  schemas:
+    GithubInstallation:
+      type: object
+      properties:
+        id:
+          description: ID of the GitHub installation
+          type: string
+          example: g1fg7td83em22qfw9pq5xyfqb7
+          pattern: ^g1[0-9a-hj-km-np-tv-z]{24}$
+        name:
+          description: Name of the GitHub installation (GitHub user/organization name)
+          type: string
+      additionalProperties: false
+      required:
+      - id
+      - name
+    Reference:
+      description: Resource ID or name
+      type: string
+      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: There was an error logging in
+            type:
+              type: string
+              example: InvalidCredentials
+            details:
+              type:
+              - object
+              - 'null'
+          required:
+          - code
+          - message
+          - type
+      additionalProperties: false
+      required:
+      - error
+    GithubCacheEntry:
+      type: object
+      properties:
+        installation_name:
+          description: name of the GitHub installation containing the repository containing the cache entry
+          type: string
+        repository_name:
+          description: name of the GitHub repository containing the cache entry
+          type: string
+        id:
+          description: ID of the GitHub cache entry
+          type: string
+          example: gefg7td83em22qfw9pq5xyfqb7
+          pattern: ^ge[0-9a-hj-km-np-tv-z]{24}$
+        key:
+          description: GitHub cache entry key
+          type: string
+        scope:
+          description: Branch scope of the GitHub cache entry
+          type: string
+        size:
+          description: Size of the GitHub cache entry in bytes
+          type:
+          - integer
+          - 'null'
+        created_at:
+          description: Timestamp of when the cache entry was created
+          type: string
+          format: date-time
+        last_accessed_at:
+          description: Timestamp of when the cache entry was last accessed
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+      required:
+      - id
+      - installation_name
+      - repository_name
+      - key
+      - scope
+      - size
+      - created_at
+      - last_accessed_at
+    GithubRepository:
+      type: object
+      properties:
+        installation_name:
+          description: Name of the GitHub installation containing the repository
+          type: string
+        id:
+          description: ID of the GitHub repository
+          type: string
+          example: gpfg7td83em22qfw9pq5xyfqb7
+          pattern: ^gp[0-9a-hj-km-np-tv-z]{24}$
+        name:
+          description: Name of the GitHub repository
+          type: string
+      additionalProperties: false
+      required:
+      - id
+      - installation_name
+      - name
+  responses:
+    Delete:
+      description: An empty response after successful resource delete
+    GithubInstallation:
+      description: A GitHub Installation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GithubInstallation'
+    GithubRepositories:
+      description: A list of GitHub Repositories
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GithubRepository'
+            additionalProperties: false
+            required:
+            - count
+            - items
+    GithubCacheEntry:
+      description: A GitHub Cache Entry
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GithubCacheEntry'
+    GithubCacheEntries:
+      description: A list of GitHub Cache Entries
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GithubCacheEntry'
+            additionalProperties: false
+            required:
+            - count
+            - items
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    GithubInstallations:
+      description: A list of GitHub Installations
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GithubInstallation'
+            additionalProperties: false
+            required:
+            - count
+            - items
+    GithubRepository:
+      description: A GitHub Repository
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GithubRepository'
+  parameters:
+    github_cache_entry_id:
+      description: GitHub cache entry ID
+      examples:
+        id:
+          value: gen30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: github-repository-name
+      in: path
+      name: github_cache_entry_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    github_repository_reference:
+      description: GitHub repository ID or name
+      examples:
+        id:
+          value: gpn30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: github-repository-name
+      in: path
+      name: github_repository_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+    github_installation_reference:
+      description: GitHub installation ID or name
+      examples:
+        id:
+          value: gin30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: github-installation-name
+      in: path
+      name: github_installation_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+x-refined-from:
+- ubicloud-openapi.yml
+- ubicloud-openapi.yml

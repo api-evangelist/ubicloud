@@ -1,0 +1,583 @@
+openapi: 3.2.0
+info:
+  title: Ubicloud Virtual Machine API
+  version: 0.1.0
+  contact:
+    url: https://www.ubicloud.com/
+    email: support@ubicloud.com
+  license:
+    name: GNU Affero General Public License v3.0 (AGPL-3.0)
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
+  description: 'Operations tagged Virtual Machine across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.ubicloud.com
+security:
+- BearerAuth: []
+tags:
+- description: Virtual Machine Operations
+  name: Virtual Machine
+paths:
+  /project/{project_id}/location/{location}/vm:
+    get:
+      operationId: listLocationVMs
+      summary: List VMs in a location
+      parameters:
+      - $ref: '#/components/parameters/location'
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/start_after'
+      - $ref: '#/components/parameters/page_size'
+      - $ref: '#/components/parameters/order_column'
+      responses:
+        '200':
+          $ref: '#/components/responses/Vms'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/vm/{vm_reference}:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/vm_reference'
+    delete:
+      operationId: deleteVM
+      summary: Delete a VM
+      responses:
+        '204':
+          $ref: '#/components/responses/Delete'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    get:
+      operationId: getVMDetails
+      summary: Get VM details
+      responses:
+        '200':
+          $ref: '#/components/responses/Vm'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    post:
+      operationId: createVM
+      summary: Create a new VM
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                boot_image:
+                  description: Boot image of the VM
+                  type: string
+                init_script:
+                  description: VM init script
+                  type: string
+                enable_ip4:
+                  description: Enable IPv4
+                  type: boolean
+                private_subnet_id:
+                  description: ID of the private subnet
+                  type: string
+                public_key:
+                  description: Public SSH key for the VM, or name of registered SSH public key
+                  type: string
+                size:
+                  description: Size of the VM
+                  type: string
+                storage_size:
+                  description: Requested storage size in GiB
+                  type: integer
+                gpu:
+                  description: Requested GPU count and type, in the form of "count:type"
+                  type: string
+                unix_user:
+                  description: Unix user of the VM
+                  type: string
+              additionalProperties: false
+              required:
+              - public_key
+      responses:
+        '200':
+          $ref: '#/components/responses/Vm'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/vm/{vm_reference}/rename:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/vm_reference'
+    post:
+      operationId: renameVM
+      summary: Rename a VM
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: New name for VM
+                  type: string
+              additionalProperties: false
+              required:
+              - name
+      responses:
+        '200':
+          $ref: '#/components/responses/Vm'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/vm/{vm_reference}/restart:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/vm_reference'
+    post:
+      operationId: restartVM
+      summary: Restart a VM
+      responses:
+        '200':
+          $ref: '#/components/responses/Vm'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/vm/{vm_reference}/serial-log:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/vm_reference'
+    get:
+      operationId: getVMSerialLog
+      summary: Get a VM's serial console log, fetching it first if it has never been fetched
+      parameters:
+      - name: refresh
+        in: query
+        description: Request a newer fetch than the last one (ignored if the last fetch was too recent, and done automatically regardless once the last result is old enough)
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/RunCommand'
+        '202':
+          $ref: '#/components/responses/RunCommand'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/vm/{vm_reference}/set-maintenance-window:
+    post:
+      operationId: setVMMaintenanceWindow
+      summary: Set maintenance window for the VM
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/location'
+      - $ref: '#/components/parameters/vm_reference'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                maintenance_window_start_at:
+                  type:
+                  - integer
+                  - 'null'
+              additionalProperties: false
+              required:
+              - maintenance_window_start_at
+      responses:
+        '200':
+          $ref: '#/components/responses/Vm'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/vm/{vm_reference}/start:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/vm_reference'
+    post:
+      operationId: startVM
+      summary: Start a VM
+      responses:
+        '200':
+          $ref: '#/components/responses/Vm'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/location/{location}/vm/{vm_reference}/stop:
+    parameters:
+    - $ref: '#/components/parameters/project_id'
+    - $ref: '#/components/parameters/location'
+    - $ref: '#/components/parameters/vm_reference'
+    post:
+      operationId: stopVm
+      summary: Stop a VM
+      responses:
+        '200':
+          $ref: '#/components/responses/Vm'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    servers:
+    - url: https://api.ubicloud.com
+  /project/{project_id}/vm:
+    get:
+      operationId: listProjectVMs
+      summary: List all VMs
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/start_after'
+      - $ref: '#/components/parameters/page_size'
+      - $ref: '#/components/parameters/order_column'
+      responses:
+        '200':
+          $ref: '#/components/responses/Vms'
+        default:
+          $ref: '#/components/responses/Error'
+      tags:
+      - Virtual Machine
+    servers:
+    - url: https://api.ubicloud.com
+components:
+  responses:
+    Delete:
+      description: An empty response after successful resource delete
+    Vms:
+      description: A list of VMs
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vm'
+            additionalProperties: false
+            required:
+            - count
+            - items
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Vm:
+      description: A VM
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            allOf:
+            - $ref: '#/components/schemas/Vm'
+            - additionalProperties: false
+              properties:
+                firewalls:
+                  description: List of firewalls
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Firewall'
+                private_ipv4:
+                  description: Private IPv4 address
+                  type: string
+                  format: ipv4
+                private_ipv6:
+                  description: Private IPv6 address
+                  type: string
+                  format: ipv6
+                subnet:
+                  description: Subnet of the VM
+                  type: string
+                unix_user:
+                  description: Unix user of the VM
+                  type: string
+                gpu:
+                  description: GPU configuration
+                  type: string
+              required:
+              - firewalls
+              - private_ipv4
+              - private_ipv6
+              - subnet
+              - unix_user
+    RunCommand:
+      description: The status/output of a VM run command
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RunCommand'
+  parameters:
+    location:
+      description: The Ubicloud location/region
+      in: path
+      name: location
+      required: true
+      schema:
+        type: string
+        example: eu-central-h1
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    order_column:
+      description: Pagination - Order column
+      in: query
+      name: order_column
+      required: false
+      schema:
+        type: string
+        default: id
+    start_after:
+      description: Pagination - Start after
+      in: query
+      name: start_after
+      required: false
+      schema:
+        type: string
+    page_size:
+      description: Pagination - Page size
+      in: query
+      name: page_size
+      required: false
+      schema:
+        type: integer
+        default: 10
+    vm_reference:
+      description: Virtual machine ID or name
+      examples:
+        id:
+          value: vmn30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: virtual-machine-name
+      in: path
+      name: vm_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: There was an error logging in
+            type:
+              type: string
+              example: InvalidCredentials
+            details:
+              type:
+              - object
+              - 'null'
+          required:
+          - code
+          - message
+          - type
+      additionalProperties: false
+      required:
+      - error
+    Vm:
+      type: object
+      properties:
+        boot_image:
+          description: Boot image of the VM
+          type: string
+        id:
+          description: ID of the VM
+          type: string
+          example: vmhfy8gff8c67hasb0eez2k1pd
+          pattern: ^vm[0-9a-hj-km-np-tv-z]{24}$
+        ip4:
+          description: IPv4 address
+          type:
+          - string
+          - 'null'
+          format: ipv4
+        ip4_enabled:
+          description: Whether IPv4 is enabled
+          type: boolean
+        ip6:
+          description: IPv6 address
+          type:
+          - string
+          - 'null'
+          format: ipv6
+        location:
+          description: Location of the VM
+          type: string
+          example: eu-central-h1
+        maintenance_window_start_at:
+          description: Maintenance window start time
+          type:
+          - integer
+          - 'null'
+        name:
+          description: Name of the VM
+          type: string
+          example: my-vm-name
+        size:
+          description: Size of the underlying VM
+          type: string
+        state:
+          description: State of the VM
+          type: string
+        storage_size_gib:
+          description: Storage size in GiB
+          type: integer
+        unix_user:
+          description: Unix user of the VM
+          type: string
+      additionalProperties: false
+      required:
+      - boot_image
+      - id
+      - ip4
+      - ip4_enabled
+      - ip6
+      - location
+      - maintenance_window_start_at
+      - name
+      - size
+      - state
+      - storage_size_gib
+      - unix_user
+      x-go-name: VmSchema
+    RunCommand:
+      type: object
+      properties:
+        status:
+          description: Status of the run command
+          type: string
+          enum:
+          - created
+          - succeeded
+          - failed
+        output:
+          description: Output of the run command, truncated to the last 64KB. Null unless status is succeeded.
+          type:
+          - string
+          - 'null'
+        timestamp:
+          description: Time the run command was last updated to its current status
+          type: string
+          format: date-time
+      additionalProperties: false
+      required:
+      - status
+      - output
+      - timestamp
+      x-go-name: RunCommandSchema
+    FirewallRule:
+      type: object
+      properties:
+        cidr:
+          description: CIDR of the firewall rule
+          type: string
+        id:
+          description: ID of the firewall rule
+          type: string
+          example: fraz0q3vbrpa7pkg7zbmah9csn
+          pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
+        port_range:
+          description: Port range of the firewall rule
+          type: string
+        protocol:
+          description: Protocol of the firewall rule (tcp or udp)
+          type: string
+          enum:
+          - tcp
+          - udp
+        description:
+          description: Description of the firewall rule
+          type: string
+      additionalProperties: false
+      required:
+      - cidr
+      - id
+      - port_range
+      - protocol
+      - description
+    Firewall:
+      type: object
+      properties:
+        description:
+          description: Description of the firewall
+          type: string
+        firewall_rules:
+          description: List of firewall rules
+          type: array
+          items:
+            $ref: '#/components/schemas/FirewallRule'
+        id:
+          description: ID of the firewall
+          type: string
+          example: fwfg7td83em22qfw9pq5xyfqb7
+          pattern: ^fw[0-9a-hj-km-np-tv-z]{24}$
+        location:
+          description: Location of the firewall
+          type: string
+        name:
+          description: Name of the firewall
+          type: string
+      additionalProperties: false
+      required:
+      - description
+      - firewall_rules
+      - id
+      - location
+      - name
+    Reference:
+      description: Resource ID or name
+      type: string
+      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+x-refined-from:
+- ubicloud-openapi.yml
+- ubicloud-openapi.yml

@@ -1,0 +1,34 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.ubicloud.com/docs/changelog/2026-09
+name: Ubicloud Changelog
+scheme: monthly product changelog pages (/docs/changelog/YYYY-MM), from 2024-12 onward
+current_version: '2026-09'
+api_version: 0.1.0
+note: The changelog is product-wide (console, runners, PostgreSQL, Kubernetes, billing), not API-versioned. Entries are monthly, so the date is the month.
+entries:
+- version: '2026-09'
+  date: '2026-09'
+  url: https://www.ubicloud.com/docs/changelog/2026-09
+  breaking: false
+  highlights:
+  - Prices for VMs, PostgreSQL, Kubernetes, and GitHub runners in Germany and Finland increased by 25% on September 1, 2026.
+  - Kubernetes v1.37 Now Available; Pin Workloads to a Nodepool
+  - PKCE for OIDC Login
+  - AlmaLinux 10; Configure Shared Memory Allocation for PostgreSQL
+- version: '2026-08'
+  date: '2026-08'
+  url: https://www.ubicloud.com/docs/changelog/2026-08
+  breaking: false
+  highlights:
+  - PostgreSQL Backup Downloads (preview); Failover Notifications; PostgreSQL 18 by Default
+  - Serial Log for VMs; Kubernetes Cluster Metrics
+  - Standard Runners Available for New Customers
+- version: '2026-07'
+  date: '2026-07'
+  url: https://www.ubicloud.com/docs/changelog/2026-07
+  breaking: false
+  highlights:
+  - Ubicloud Machine Images are generally available
+  - Nodepools are now first-class resources; private connection between a Kubernetes cluster and a Postgres database
+  - Load balancers use v2 hostnames by default

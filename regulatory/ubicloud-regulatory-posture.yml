@@ -1,0 +1,105 @@
+generated: '2026-10-09'
+method: searched
+source:
+- https://www.ubicloud.com/docs/about/privacy-policy
+- https://www.ubicloud.com/docs/about/terms-of-service
+- https://www.ubicloud.com/docs/about/sub-processors
+signals:
+  data_subject_request:
+    url: https://www.ubicloud.com/docs/about/privacy-policy
+    section: Your rights
+    note: Lists access, rectification, erasure, objection, withdrawal of consent and portability rights; requests go by email
+      to info@ubicloud.com with identity verification.
+    channel: info@ubicloud.com
+    evidence:
+    - source: https://www.ubicloud.com/docs/about/privacy-policy
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: 'You may exercise certain legal rights regarding your personal data processed by us. In particular, you could
+        have a right to do the following:'
+    - source: https://www.ubicloud.com/docs/about/privacy-policy
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: The right to receive your collected personal data in a structured, commonly used, and machine-readable format
+        to facilitate its transfer to another company, where technically feasible.
+    - source: https://www.ubicloud.com/docs/about/privacy-policy
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: To verify your identity for security, we may request extra information before addressing your data-related request.
+  subprocessors:
+    url: https://www.ubicloud.com/docs/about/sub-processors
+    section: Ubicloud's List of Sub-Processors
+    note: Published sub-processor list split into Customer Content Data (Hetzner, Leaseweb Germany, Latitude.sh, Leaseweb
+      US) and Customer Account Data, with processing locations; customers can subscribe to new-subprocessor notifications
+      via a form.
+    evidence:
+    - source: https://www.ubicloud.com/docs/about/privacy-policy
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: Please visit [our sub-processors](/docs/about/sub-processors) page for a list of our processor and sub-processors
+        of customer account data.
+    - source: https://www.ubicloud.com/docs/about/sub-processors
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: Customers may sign up to receive notification of new Subprocessors by filling out [this form](https://forms.gle/x5mq9ER5Xe4gBPsU9).
+  data_residency:
+    url: https://www.ubicloud.com/docs/about/privacy-policy
+    section: How we use your personal data
+    note: Customer account data is stored only in the EEA (with possible US affiliate access under adequacy decisions or SCCs);
+      customers choose the region for Services Content, but the Terms let Ubicloud transfer content elsewhere unless agreed
+      in writing.
+    evidence:
+    - source: https://www.ubicloud.com/docs/about/privacy-policy
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: We store personal data of all of our customers only in the European Economic Area ("EEA"). From time to time,
+        your personal data may be accessed from outside of the EEA, including by a Ubicloud Affiliate from the United States.
+    - source: https://www.ubicloud.com/docs/about/terms-of-service
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: When purchasing and using our Services, you may specify the geographic region and jurisdiction in which your
+        Services Content will be stored.
+    - source: https://www.ubicloud.com/docs/about/terms-of-service
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: Unless otherwise agreed in writing between you and Ubicloud, you agree that Ubicloud may transfer your Services
+        Content in other geographic regions or jurisdictions at its sole discretion.
+  data_retention:
+    url: https://www.ubicloud.com/docs/about/privacy-policy
+    section: How we secure and retain your personal data
+    note: Purpose-bound retention with no fixed periods stated.
+    evidence:
+    - source: https://www.ubicloud.com/docs/about/privacy-policy
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: We'll retain your personal data while you maintain an account with us, and for as long as required by the purpose
+        for which we collected it.
+    - source: https://www.ubicloud.com/docs/about/privacy-policy
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: We may retain personal data for longer if you have given us consent for it or if we are required to do so to
+        comply with our legal obligations, to resolve disputes and enforce agreements.
+  exit_assistance:
+    url: https://www.ubicloud.com/docs/about/terms-of-service
+    section: 11. Termination
+    note: No exit or data-export assistance is offered; the Terms state termination may destroy account data. Recorded as
+      the absence of an exit commitment.
+    evidence:
+    - source: https://www.ubicloud.com/docs/about/terms-of-service
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: Any such termination may result in the immediate forfeiture and destruction of data associated with your Account.
+  age_assurance:
+    url: https://www.ubicloud.com/docs/about/terms-of-service
+    section: 2. Eligibility & Registration
+    note: Self-declared 18+ eligibility; no age verification mechanism described.
+    evidence:
+    - source: https://www.ubicloud.com/docs/about/terms-of-service
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: 'The Services are not targeted towards, nor intended for use by, anyone under the age of 18. By using the Services,
+        you represent and warrant to us that: (a) you are 18 years of age or older;'
+note: Read from the markdown twins of the privacy notice (last updated 12/04/2024), terms of service and sub-processor list.
+  Incident notification in the Terms runs from customer to Ubicloud only (customer must notify Ubicloud of incidents); no
+  provider breach-notification commitment, GPC, AI transparency, accessibility, SBOM or transparency report language found.
+  trust.ubicloud.com is a JavaScript shell and was not read.

@@ -1,0 +1,53 @@
+name: Ubicloud agent skills
+generated: '2026-10-09'
+method: generated
+source: openapi/ubicloud-openapi.yml
+note: No provider-published skills or AGENTS.md found (ubicloud/ubicloud AGENTS.md
+  404).
+skills:
+- name: ubicloud-provision-vm
+  path: skills/ubicloud-provision-vm.md
+  description: Register an SSH key and provision, inspect and control a Ubicloud virtual
+    machine.
+  operations:
+  - registerSshPublicKey
+  - createVM
+  - getVMDetails
+  - listProjectVMs
+  - restartVM
+  - stopVm
+  - startVM
+  - deleteVM
+- name: ubicloud-managed-postgres
+  path: skills/ubicloud-managed-postgres.md
+  description: Create and operate a Ubicloud managed PostgreSQL database.
+  operations:
+  - createPostgresDatabase
+  - getPostgresDatabaseDetails
+  - listPostgresDatabases
+  - createLocationPostgresFirewallRule
+  - createPostgresDatabaseReadReplica
+  - restartPostgresDatabase
+  - deletePostgresDatabase
+- name: ubicloud-kubernetes-cluster
+  path: skills/ubicloud-kubernetes-cluster.md
+  description: Create a Ubicloud managed Kubernetes cluster and fetch its kubeconfig.
+  operations:
+  - createKubernetesCluster
+  - getKubernetesClusterDetails
+  - getKubernetesKubeconfigFile
+  - createKubernetesNodepool
+  - resizeKubernetesNodepool
+  - listProjectKubernetesClusters
+  - deleteKubernetesCluster
+- name: ubicloud-network-load-balancing
+  path: skills/ubicloud-network-load-balancing.md
+  description: Put Ubicloud VMs behind a firewall and load balancer in a private subnet.
+  operations:
+  - createPrivateSubnet
+  - createLocationFirewall
+  - createLocationFirewallRule
+  - actionLocationFirewallAttachSubnet
+  - createLocationLoadBalancer
+  - attachVmLocationLoadBalancer
+  - getLoadBalancerDetails

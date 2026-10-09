@@ -1,0 +1,296 @@
+generated: '2026-10-09'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/ubicloud-openapi.yml
+vocabulary:
+  name: Ubicloud Domain Vocabulary
+  description: 'Terms declared by Ubicloud''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-09'
+  terms:
+  - term: Firewall
+    definition: Firewall Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Firewall Rule
+    definition: Firewall Rule Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Inference Api Key
+    definition: Inference API Key Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Inference Endpoint
+    definition: Inference Endpoint Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Load Balancer
+    definition: Load Balancer Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Login
+    definition: Login Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Machine Image
+    definition: Machine Image Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Postgres Database
+    definition: Postgres Database Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Postgres Firewall Rule
+    definition: Postgres Firewall Rule Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Postgres Metric Destination
+    definition: Postgres Metric Destination
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Postgres Log Destination
+    definition: Postgres Log Destination
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Private Subnet
+    definition: Private Subnet Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Project
+    definition: Project Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Virtual Machine
+    definition: Virtual Machine Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Private Location
+    definition: Private Location Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Kubernetes Cluster
+    definition: Kubernetes Cluster Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: SSH Public Key
+    definition: SSH Public Key Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: GitHub
+    definition: GitHub Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: Audit Log
+    definition: Audit Log Operations
+    tags:
+    - Resource Group
+    source: openapi/ubicloud-openapi.yml
+  - term: MaintenanceWindowDay
+    definition: 'Enumeration declared by the contract with values: mon, tue, wed, thu, fri, sat, sun.'
+    tags:
+    - Enumeration
+    source: openapi/ubicloud-openapi.yml#/components/schemas/MaintenanceWindowDay
+  - term: Kubeconfig
+    definition: Raw YAML content of a Kubernetes cluster configuration file
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/Kubeconfig
+  - term: AuditLog
+    definition: 'Object declared by the contract with fields: at, action, subject_id, subject_name, object_ids.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/AuditLog
+  - term: Error
+    definition: 'Object declared by the contract with fields: error.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/Error
+  - term: PostgresConfig
+    definition: 'Object declared by the contract with fields: pg_config, pgbouncer_config, default_pg_config, message.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresConfig
+  - term: SshPublicKeyCreate
+    definition: 'Object declared by the contract with fields: name, public_key.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/SshPublicKeyCreate
+  - term: CertAuthUserRequest
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/CertAuthUserRequest
+  - term: CertAuthUserList
+    definition: 'Object declared by the contract with fields: items.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/CertAuthUserList
+  - term: PostgresTag
+    definition: 'Object declared by the contract with fields: key, value.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresTag
+  - term: PrivateLocation
+    definition: 'Object declared by the contract with fields: id, name, ui_name, provider, path.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PrivateLocation
+  - term: GithubCacheEntry
+    definition: 'Object declared by the contract with fields: installation_name, repository_name, id, key, scope, size, created_at, last_accessed_at.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/GithubCacheEntry
+  - term: GithubRepository
+    definition: 'Object declared by the contract with fields: installation_name, id, name.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/GithubRepository
+  - term: GithubInstallation
+    definition: 'Object declared by the contract with fields: id, name.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/GithubInstallation
+  - term: FirewallRule
+    definition: 'Object declared by the contract with fields: cidr, id, port_range, protocol, description.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/FirewallRule
+  - term: SshPublicKey
+    definition: 'Object declared by the contract with fields: id, name, public_key.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/SshPublicKey
+  - term: InferenceApiKey
+    definition: 'Object declared by the contract with fields: id, key.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/InferenceApiKey
+  - term: InferenceEndpointPrice
+    definition: 'Object declared by the contract with fields: per_million_prompt_tokens, per_million_completion_tokens.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/InferenceEndpointPrice
+  - term: InferenceEndpoint
+    definition: 'Object declared by the contract with fields: id, name, display_name, url, model_name, tags, price.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/InferenceEndpoint
+  - term: LoadBalancer
+    definition: 'Object declared by the contract with fields: algorithm, stack, dst_port, health_check_endpoint, health_check_protocol, hostname,
+      id, location, name, src_port, cert_enabled.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/LoadBalancer
+  - term: MachineImage
+    definition: 'Object declared by the contract with fields: id, name, location, arch, latest_version, created_at.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/MachineImage
+  - term: MachineImageVersion
+    definition: 'Object declared by the contract with fields: id, version, state, actual_size_mib, archive_size_mib, created_at, latest.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/MachineImageVersion
+  - term: Nic
+    definition: 'Object declared by the contract with fields: id, name, private_ipv4, private_ipv6, vm_name.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/Nic
+  - term: PostgresDatabase
+    definition: 'Object declared by the contract with fields: flavor, ha_type, target_server_count, id, location, name, state, storage_size_gib,
+      target_storage_size_gib, version, target_version, vm_size. (9 more)'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresDatabase
+  - term: PostgresDatabaseLogEntry
+    definition: 'Object declared by the contract with fields: timestamp, stream_name, severity_level, message, server_ubid, server_role, context.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresDatabaseLogEntry
+  - term: ResourceMetrics
+    definition: 'Object declared by the contract with fields: metrics.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/ResourceMetrics
+  - term: PostgresServer
+    definition: 'Object declared by the contract with fields: id, role, state, synchronization_status, vm_size, fallback_active.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresServer
+  - term: PostgresBackup
+    definition: 'Object declared by the contract with fields: key, last_modified.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresBackup
+  - term: PostgresBackupCredentials
+    definition: 'Object declared by the contract with fields: bucket, endpoint, region, access_key_id, secret_access_key, session_token, expiration.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresBackupCredentials
+  - term: PostgresFirewallRule
+    definition: 'Object declared by the contract with fields: cidr, description, id, port.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresFirewallRule
+  - term: PostgresLogDestination
+    definition: 'Object declared by the contract with fields: id, name, type, url.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresLogDestination
+  - term: PrivateSubnet
+    definition: 'Object declared by the contract with fields: firewalls, id, location, name, net4, net6, nics, state.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PrivateSubnet
+  - term: Reference
+    definition: Resource ID or name
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/Reference
+  - term: Vm
+    definition: 'Object declared by the contract with fields: boot_image, id, ip4, ip4_enabled, ip6, location, maintenance_window_start_at, name,
+      size, state, storage_size_gib, unix_user.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/Vm
+  - term: RunCommand
+    definition: 'Object declared by the contract with fields: status, output, timestamp.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/RunCommand
+  - term: KubernetesCluster
+    definition: 'Object declared by the contract with fields: cp_node_count, cp_vms, display_state, id, location, name, node_size, nodepools,
+      services_load_balancer_url, version.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/KubernetesCluster
+  - term: KubernetesNodepool
+    definition: 'Object declared by the contract with fields: kubernetes_cluster_id, id, name, node_count, node_size, version, vms.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/KubernetesNodepool
+  - term: PostgresCapabilities
+    definition: 'Tree of valid option combinations and metadata for each option value. The option_tree encodes parent-child dependencies: traverse
+      from flavor -> location -> family -> size -> storage_size -> ha_type (with version branching from flavor). Only combinations present in
+      the tree are valid for provisioning.'
+    tags:
+    - Object
+    source: openapi/ubicloud-openapi.yml#/components/schemas/PostgresCapabilities
