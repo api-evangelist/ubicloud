@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud GitHub API
+  description: API for managing resources on Ubicloud
+  title: Clover GitHub API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged GitHub across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -30,8 +30,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Github
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/github/{github_installation_reference}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -46,8 +44,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Github
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/github/{github_installation_reference}/repository:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -62,8 +58,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Github
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/github/{github_installation_reference}/repository/{github_repository_reference}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -79,8 +73,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Github
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/github/{github_installation_reference}/repository/{github_repository_reference}/cache:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -106,8 +98,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Github
-    servers:
-    - url: https://api.ubicloud.com
   ? /project/{project_id}/github/{github_installation_reference}/repository/{github_repository_reference}/cache/{github_cache_entry_id}
   : parameters:
     - $ref: '#/components/parameters/project_id'
@@ -134,8 +124,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Github
-    servers:
-    - url: https://api.ubicloud.com
 components:
   schemas:
     GithubInstallation:
@@ -153,10 +141,25 @@ components:
       required:
       - id
       - name
-    Reference:
-      description: Resource ID or name
-      type: string
-      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+    GithubRepository:
+      type: object
+      properties:
+        installation_name:
+          description: Name of the GitHub installation containing the repository
+          type: string
+        id:
+          description: ID of the GitHub repository
+          type: string
+          example: gpfg7td83em22qfw9pq5xyfqb7
+          pattern: ^gp[0-9a-hj-km-np-tv-z]{24}$
+        name:
+          description: Name of the GitHub repository
+          type: string
+      additionalProperties: false
+      required:
+      - id
+      - installation_name
+      - name
     Error:
       type: object
       properties:
@@ -229,57 +232,11 @@ components:
       - size
       - created_at
       - last_accessed_at
-    GithubRepository:
-      type: object
-      properties:
-        installation_name:
-          description: Name of the GitHub installation containing the repository
-          type: string
-        id:
-          description: ID of the GitHub repository
-          type: string
-          example: gpfg7td83em22qfw9pq5xyfqb7
-          pattern: ^gp[0-9a-hj-km-np-tv-z]{24}$
-        name:
-          description: Name of the GitHub repository
-          type: string
-      additionalProperties: false
-      required:
-      - id
-      - installation_name
-      - name
+    Reference:
+      description: Resource ID or name
+      type: string
+      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
   responses:
-    Delete:
-      description: An empty response after successful resource delete
-    GithubInstallation:
-      description: A GitHub Installation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GithubInstallation'
-    GithubRepositories:
-      description: A list of GitHub Repositories
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              count:
-                type: integer
-              items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/GithubRepository'
-            additionalProperties: false
-            required:
-            - count
-            - items
-    GithubCacheEntry:
-      description: A GitHub Cache Entry
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GithubCacheEntry'
     GithubCacheEntries:
       description: A list of GitHub Cache Entries
       content:
@@ -297,12 +254,29 @@ components:
             required:
             - count
             - items
-    Error:
-      description: An error response
+    GithubRepository:
+      description: A GitHub Repository
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/GithubRepository'
+    GithubRepositories:
+      description: A list of GitHub Repositories
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GithubRepository'
+            additionalProperties: false
+            required:
+            - count
+            - items
     GithubInstallations:
       description: A list of GitHub Installations
       content:
@@ -320,12 +294,26 @@ components:
             required:
             - count
             - items
-    GithubRepository:
-      description: A GitHub Repository
+    Delete:
+      description: An empty response after successful resource delete
+    GithubCacheEntry:
+      description: A GitHub Cache Entry
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/GithubRepository'
+            $ref: '#/components/schemas/GithubCacheEntry'
+    GithubInstallation:
+      description: A GitHub Installation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GithubInstallation'
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     github_cache_entry_id:
       description: GitHub cache entry ID
@@ -336,6 +324,18 @@ components:
           value: github-repository-name
       in: path
       name: github_cache_entry_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+    github_installation_reference:
+      description: GitHub installation ID or name
+      examples:
+        id:
+          value: gin30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: github-installation-name
+      in: path
+      name: github_installation_reference
       required: true
       schema:
         $ref: '#/components/schemas/Reference'
@@ -360,23 +360,8 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/Reference'
-    github_installation_reference:
-      description: GitHub installation ID or name
-      examples:
-        id:
-          value: gin30gjk1d1e2jj34v9x0dq4rp
-        name:
-          value: github-installation-name
-      in: path
-      name: github_installation_reference
-      required: true
-      schema:
-        $ref: '#/components/schemas/Reference'
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

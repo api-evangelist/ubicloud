@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Firewall API
+  description: API for managing resources on Ubicloud
+  title: Clover Firewall API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Firewall across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -30,8 +30,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Firewall
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/firewall:
     parameters:
     - $ref: '#/components/parameters/location'
@@ -46,8 +44,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Firewall
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/firewall/{firewall_reference}:
     parameters:
     - $ref: '#/components/parameters/location'
@@ -117,8 +113,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Firewall
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/firewall/{firewall_reference}/attach-subnet:
     parameters:
     - $ref: '#/components/parameters/location'
@@ -147,8 +141,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Firewall
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/firewall/{firewall_reference}/detach-subnet:
     parameters:
     - $ref: '#/components/parameters/location'
@@ -177,8 +169,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Firewall
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/firewall/{firewall_reference}/rename:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -207,18 +197,25 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Firewall
-    servers:
-    - url: https://api.ubicloud.com
 components:
   responses:
-    Firewall:
-      description: A Firewall
+    Firewalls:
+      description: A list of Firewalls
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Firewall'
-    Delete:
-      description: An empty response after successful resource delete
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Firewall'
+            additionalProperties: false
+            required:
+            - count
+            - items
     FirewallDetailed:
       description: A Firewall (detailed)
       content:
@@ -243,53 +240,44 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Firewalls:
-      description: A list of Firewalls
+    Delete:
+      description: An empty response after successful resource delete
+    Firewall:
+      description: A Firewall
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              count:
-                type: integer
-              items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Firewall'
-            additionalProperties: false
-            required:
-            - count
-            - items
+            $ref: '#/components/schemas/Firewall'
   schemas:
-    Nic:
+    Firewall:
       type: object
       properties:
+        description:
+          description: Description of the firewall
+          type: string
+        firewall_rules:
+          description: List of firewall rules
+          type: array
+          items:
+            $ref: '#/components/schemas/FirewallRule'
         id:
-          description: ID of the NIC
+          description: ID of the firewall
+          type: string
+          example: fwfg7td83em22qfw9pq5xyfqb7
+          pattern: ^fw[0-9a-hj-km-np-tv-z]{24}$
+        location:
+          description: Location of the firewall
           type: string
         name:
-          description: Name of the NIC
+          description: Name of the firewall
           type: string
-        private_ipv4:
-          description: Private IPv4 address
-          type: string
-          format: ipv4
-        private_ipv6:
-          description: Private IPv6 address
-          type: string
-          format: ipv6
-        vm_name:
-          description: Name of the VM
-          type:
-          - string
-          - 'null'
       additionalProperties: false
       required:
+      - description
+      - firewall_rules
       - id
+      - location
       - name
-      - private_ipv4
-      - private_ipv6
-      - vm_name
     Error:
       type: object
       properties:
@@ -317,6 +305,40 @@ components:
       additionalProperties: false
       required:
       - error
+    FirewallRule:
+      type: object
+      properties:
+        cidr:
+          description: CIDR of the firewall rule
+          type: string
+        id:
+          description: ID of the firewall rule
+          type: string
+          example: fraz0q3vbrpa7pkg7zbmah9csn
+          pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
+        port_range:
+          description: Port range of the firewall rule
+          type: string
+        protocol:
+          description: Protocol of the firewall rule (tcp or udp)
+          type: string
+          enum:
+          - tcp
+          - udp
+        description:
+          description: Description of the firewall rule
+          type: string
+      additionalProperties: false
+      required:
+      - cidr
+      - id
+      - port_range
+      - protocol
+      - description
+    Reference:
+      description: Resource ID or name
+      type: string
+      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
     PrivateSubnet:
       type: object
       properties:
@@ -359,69 +381,35 @@ components:
       - net6
       - nics
       - state
-    FirewallRule:
+    Nic:
       type: object
       properties:
-        cidr:
-          description: CIDR of the firewall rule
-          type: string
         id:
-          description: ID of the firewall rule
-          type: string
-          example: fraz0q3vbrpa7pkg7zbmah9csn
-          pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
-        port_range:
-          description: Port range of the firewall rule
-          type: string
-        protocol:
-          description: Protocol of the firewall rule (tcp or udp)
-          type: string
-          enum:
-          - tcp
-          - udp
-        description:
-          description: Description of the firewall rule
-          type: string
-      additionalProperties: false
-      required:
-      - cidr
-      - id
-      - port_range
-      - protocol
-      - description
-    Firewall:
-      type: object
-      properties:
-        description:
-          description: Description of the firewall
-          type: string
-        firewall_rules:
-          description: List of firewall rules
-          type: array
-          items:
-            $ref: '#/components/schemas/FirewallRule'
-        id:
-          description: ID of the firewall
-          type: string
-          example: fwfg7td83em22qfw9pq5xyfqb7
-          pattern: ^fw[0-9a-hj-km-np-tv-z]{24}$
-        location:
-          description: Location of the firewall
+          description: ID of the NIC
           type: string
         name:
-          description: Name of the firewall
+          description: Name of the NIC
           type: string
+        private_ipv4:
+          description: Private IPv4 address
+          type: string
+          format: ipv4
+        private_ipv6:
+          description: Private IPv6 address
+          type: string
+          format: ipv6
+        vm_name:
+          description: Name of the VM
+          type:
+          - string
+          - 'null'
       additionalProperties: false
       required:
-      - description
-      - firewall_rules
       - id
-      - location
       - name
-    Reference:
-      description: Resource ID or name
-      type: string
-      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+      - private_ipv4
+      - private_ipv6
+      - vm_name
   parameters:
     project_id:
       description: ID of the project
@@ -457,6 +445,3 @@ components:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

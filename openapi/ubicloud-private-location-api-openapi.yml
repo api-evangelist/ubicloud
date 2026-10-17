@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Private Location API
+  description: API for managing resources on Ubicloud
+  title: Clover Private Location API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Private Location across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -71,8 +71,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Private Location
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/private-location/{private_location_name}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -120,12 +118,8 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Private Location
-    servers:
-    - url: https://api.ubicloud.com
 components:
   responses:
-    Delete:
-      description: An empty response after successful resource delete
     PrivateLocation:
       description: A Private Location
       content:
@@ -138,6 +132,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Delete:
+      description: An empty response after successful resource delete
     PrivateLocations:
       description: A list of Private Locations
       content:
@@ -155,6 +151,23 @@ components:
             required:
             - count
             - items
+  parameters:
+    private_location_name:
+      description: Name of the private location
+      in: path
+      name: private_location_name
+      required: true
+      schema:
+        type: string
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
   schemas:
     Error:
       type: object
@@ -208,28 +221,8 @@ components:
       - provider
       - path
       - ui_name
-  parameters:
-    project_id:
-      description: ID of the project
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: string
-        example: pjkkmx0f2vke4h36nk9cm8v8q0
-        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
-    private_location_name:
-      description: Name of the private location
-      in: path
-      name: private_location_name
-      required: true
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

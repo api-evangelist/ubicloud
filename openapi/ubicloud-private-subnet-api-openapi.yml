@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Private Subnet API
+  description: API for managing resources on Ubicloud
+  title: Clover Private Subnet API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Private Subnet across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -34,8 +34,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Private Subnet
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/private-subnet/{private_subnet_reference}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -81,8 +79,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Private Subnet
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/private-subnet/{private_subnet_reference}/connect:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -108,8 +104,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Private Subnet
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/private-subnet/{private_subnet_reference}/disconnect/{private_subnet_id}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -126,8 +120,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Private Subnet
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/private-subnet/{private_subnet_reference}/rename:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -156,8 +148,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Private Subnet
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/private-subnet:
     get:
       operationId: listPSs
@@ -174,85 +164,69 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Private Subnet
-    servers:
-    - url: https://api.ubicloud.com
 components:
-  schemas:
-    Reference:
-      description: Resource ID or name
-      type: string
-      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
-    Nic:
-      type: object
-      properties:
-        id:
-          description: ID of the NIC
-          type: string
-        name:
-          description: Name of the NIC
-          type: string
-        private_ipv4:
-          description: Private IPv4 address
-          type: string
-          format: ipv4
-        private_ipv6:
-          description: Private IPv6 address
-          type: string
-          format: ipv6
-        vm_name:
-          description: Name of the VM
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      required:
-      - id
-      - name
-      - private_ipv4
-      - private_ipv6
-      - vm_name
+  responses:
     PrivateSubnet:
+      description: A Private Subnet
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PrivateSubnet'
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Delete:
+      description: An empty response after successful resource delete
+    PrivateSubnets:
+      description: A list of Private Subnets
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrivateSubnet'
+            additionalProperties: false
+            required:
+            - count
+            - items
+  schemas:
+    Firewall:
       type: object
       properties:
-        firewalls:
+        description:
+          description: Description of the firewall
+          type: string
+        firewall_rules:
+          description: List of firewall rules
           type: array
           items:
-            $ref: '#/components/schemas/Firewall'
+            $ref: '#/components/schemas/FirewallRule'
         id:
-          description: ID of the subnet
+          description: ID of the firewall
           type: string
-          example: ps3dngttwvje2kmr2sn8x12x4r
-          pattern: ^ps[0-9a-hj-km-np-tv-z]{24}$
+          example: fwfg7td83em22qfw9pq5xyfqb7
+          pattern: ^fw[0-9a-hj-km-np-tv-z]{24}$
         location:
-          description: Location of the subnet
+          description: Location of the firewall
           type: string
         name:
-          description: Name of the subnet
-          type: string
-        net4:
-          description: IPv4 CIDR of the subnet
-          type: string
-        net6:
-          description: IPv6 CIDR of the subnet
-          type: string
-        nics:
-          description: List of NICs
-          type: array
-          items:
-            $ref: '#/components/schemas/Nic'
-        state:
-          description: State of the subnet
+          description: Name of the firewall
           type: string
       additionalProperties: false
       required:
-      - firewalls
+      - description
+      - firewall_rules
       - id
       - location
       - name
-      - net4
-      - net6
-      - nics
-      - state
     Error:
       type: object
       properties:
@@ -310,76 +284,90 @@ components:
       - port_range
       - protocol
       - description
-    Firewall:
+    Reference:
+      description: Resource ID or name
+      type: string
+      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+    PrivateSubnet:
       type: object
       properties:
-        description:
-          description: Description of the firewall
-          type: string
-        firewall_rules:
-          description: List of firewall rules
+        firewalls:
           type: array
           items:
-            $ref: '#/components/schemas/FirewallRule'
+            $ref: '#/components/schemas/Firewall'
         id:
-          description: ID of the firewall
+          description: ID of the subnet
           type: string
-          example: fwfg7td83em22qfw9pq5xyfqb7
-          pattern: ^fw[0-9a-hj-km-np-tv-z]{24}$
+          example: ps3dngttwvje2kmr2sn8x12x4r
+          pattern: ^ps[0-9a-hj-km-np-tv-z]{24}$
         location:
-          description: Location of the firewall
+          description: Location of the subnet
           type: string
         name:
-          description: Name of the firewall
+          description: Name of the subnet
+          type: string
+        net4:
+          description: IPv4 CIDR of the subnet
+          type: string
+        net6:
+          description: IPv6 CIDR of the subnet
+          type: string
+        nics:
+          description: List of NICs
+          type: array
+          items:
+            $ref: '#/components/schemas/Nic'
+        state:
+          description: State of the subnet
           type: string
       additionalProperties: false
       required:
-      - description
-      - firewall_rules
+      - firewalls
       - id
       - location
       - name
-  responses:
-    Delete:
-      description: An empty response after successful resource delete
-    PrivateSubnet:
-      description: A Private Subnet
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PrivateSubnet'
-    Error:
-      description: An error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    PrivateSubnets:
-      description: A list of Private Subnets
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              count:
-                type: integer
-              items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PrivateSubnet'
-            additionalProperties: false
-            required:
-            - count
-            - items
+      - net4
+      - net6
+      - nics
+      - state
+    Nic:
+      type: object
+      properties:
+        id:
+          description: ID of the NIC
+          type: string
+        name:
+          description: Name of the NIC
+          type: string
+        private_ipv4:
+          description: Private IPv4 address
+          type: string
+          format: ipv4
+        private_ipv6:
+          description: Private IPv6 address
+          type: string
+          format: ipv6
+        vm_name:
+          description: Name of the VM
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      required:
+      - id
+      - name
+      - private_ipv4
+      - private_ipv6
+      - vm_name
   parameters:
-    location:
-      description: The Ubicloud location/region
-      in: path
-      name: location
-      required: true
+    page_size:
+      description: Pagination - Page size
+      in: query
+      name: page_size
+      required: false
       schema:
-        type: string
-        example: eu-central-h1
+        type: integer
+        default: 10
     project_id:
       description: ID of the project
       in: path
@@ -389,6 +377,38 @@ components:
         type: string
         example: pjkkmx0f2vke4h36nk9cm8v8q0
         pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    private_subnet_id:
+      description: ID of the private subnet
+      in: path
+      name: private_subnet_id
+      required: true
+      schema:
+        type: string
+        example: pskkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^ps[0-9a-hj-km-np-tv-z]{24}$
+    location:
+      description: The Ubicloud location/region
+      in: path
+      name: location
+      required: true
+      schema:
+        type: string
+        example: eu-central-h1
+    start_after:
+      description: Pagination - Start after
+      in: query
+      name: start_after
+      required: false
+      schema:
+        type: string
+    order_column:
+      description: Pagination - Order column
+      in: query
+      name: order_column
+      required: false
+      schema:
+        type: string
+        default: id
     private_subnet_reference:
       description: Private subnet ID or name
       examples:
@@ -401,43 +421,8 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/Reference'
-    order_column:
-      description: Pagination - Order column
-      in: query
-      name: order_column
-      required: false
-      schema:
-        type: string
-        default: id
-    private_subnet_id:
-      description: ID of the private subnet
-      in: path
-      name: private_subnet_id
-      required: true
-      schema:
-        type: string
-        example: pskkmx0f2vke4h36nk9cm8v8q0
-        pattern: ^ps[0-9a-hj-km-np-tv-z]{24}$
-    start_after:
-      description: Pagination - Start after
-      in: query
-      name: start_after
-      required: false
-      schema:
-        type: string
-    page_size:
-      description: Pagination - Page size
-      in: query
-      name: page_size
-      required: false
-      schema:
-        type: integer
-        default: 10
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Firewall Rule API
+  description: API for managing resources on Ubicloud
+  title: Clover Firewall Rule API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Firewall Rule across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -58,8 +58,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Firewall Rule
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/firewall/{firewall_reference}/firewall-rule/{firewall_rule_id}:
     parameters:
     - $ref: '#/components/parameters/location'
@@ -102,8 +100,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Firewall Rule
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/firewall-rule/{firewall_rule_id}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -120,9 +116,58 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Firewall Rule
-    servers:
-    - url: https://api.ubicloud.com
 components:
+  parameters:
+    firewall_reference:
+      description: Firewall ID or name
+      examples:
+        id:
+          value: fwn30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: firewall-name
+      in: path
+      name: firewall_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    location:
+      description: The Ubicloud location/region
+      in: path
+      name: location
+      required: true
+      schema:
+        type: string
+        example: eu-central-h1
+    postgres_database_reference:
+      description: Postgres database ID or name
+      examples:
+        id:
+          value: pgn30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: postgres-database-name
+      in: path
+      name: postgres_database_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+    firewall_rule_id:
+      description: ID of the firewall rule
+      in: path
+      name: firewall_rule_id
+      required: true
+      schema:
+        type: string
+        example: fraz0q3vbrpa7pkg7zbmah9csn
+        pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
   schemas:
     FirewallRuleUpdate:
       anyOf:
@@ -240,6 +285,18 @@ components:
   responses:
     Delete:
       description: An empty response after successful resource delete
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FirewallRule:
+      description: A Firewall Rule
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FirewallRule'
     FirewallRuleOrRules:
       description: A Firewall Rule or array of them
       content:
@@ -250,74 +307,8 @@ components:
             - type: array
               items:
                 $ref: '#/components/schemas/FirewallRule'
-    FirewallRule:
-      description: A Firewall Rule
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FirewallRule'
-    Error:
-      description: An error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    postgres_database_reference:
-      description: Postgres database ID or name
-      examples:
-        id:
-          value: pgn30gjk1d1e2jj34v9x0dq4rp
-        name:
-          value: postgres-database-name
-      in: path
-      name: postgres_database_reference
-      required: true
-      schema:
-        $ref: '#/components/schemas/Reference'
-    location:
-      description: The Ubicloud location/region
-      in: path
-      name: location
-      required: true
-      schema:
-        type: string
-        example: eu-central-h1
-    project_id:
-      description: ID of the project
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: string
-        example: pjkkmx0f2vke4h36nk9cm8v8q0
-        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
-    firewall_rule_id:
-      description: ID of the firewall rule
-      in: path
-      name: firewall_rule_id
-      required: true
-      schema:
-        type: string
-        example: fraz0q3vbrpa7pkg7zbmah9csn
-        pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
-    firewall_reference:
-      description: Firewall ID or name
-      examples:
-        id:
-          value: fwn30gjk1d1e2jj34v9x0dq4rp
-        name:
-          value: firewall-name
-      in: path
-      name: firewall_reference
-      required: true
-      schema:
-        $ref: '#/components/schemas/Reference'
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

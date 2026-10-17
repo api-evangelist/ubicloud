@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Project API
+  description: API for managing resources on Ubicloud
+  title: Clover Project API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Project across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -40,8 +40,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Project
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/object-info/{object_id}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -56,46 +54,23 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Project
-    servers:
-    - url: https://api.ubicloud.com
 components:
-  responses:
-    Delete:
-      description: An empty response after successful resource delete
-    Error:
-      description: An error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ObjectInfo:
-      description: Type, location, and name information for object
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              type:
-                description: Type of object
-                type: string
-              location:
-                description: Location of object
-                type: string
-              name:
-                description: Name of object
-                type: string
-            additionalProperties: false
-            required:
-            - type
-            - location
-            - name
-    Project:
-      description: A Project
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Project'
   schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+          example: pjkkmx0f2vke4h36nk9cm8v8q0
+          pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+        name:
+          description: Name of the project
+          type: string
+          example: my-project
+      additionalProperties: false
+      required:
+      - id
+      - name
     Error:
       type: object
       properties:
@@ -123,31 +98,43 @@ components:
       additionalProperties: false
       required:
       - error
+  responses:
+    ObjectInfo:
+      description: Type, location, and name information for object
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                description: Type of object
+                type: string
+              location:
+                description: Location of object
+                type: string
+              name:
+                description: Name of object
+                type: string
+            additionalProperties: false
+            required:
+            - type
+            - location
+            - name
+    Delete:
+      description: An empty response after successful resource delete
     Project:
-      type: object
-      properties:
-        id:
-          type: string
-          example: pjkkmx0f2vke4h36nk9cm8v8q0
-          pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
-        name:
-          description: Name of the project
-          type: string
-          example: my-project
-      additionalProperties: false
-      required:
-      - id
-      - name
+      description: A Project
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Project'
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    project_id:
-      description: ID of the project
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: string
-        example: pjkkmx0f2vke4h36nk9cm8v8q0
-        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
     object_id:
       description: ID of a supported object
       in: path
@@ -157,11 +144,17 @@ components:
         type: string
         example: fwkkmx0f2vke4h36nk9cm8v8q0
         pattern: ^(fw|kc|1b|m1|pg|ps|vm)[0-9a-hj-km-np-tv-z]{24}$
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

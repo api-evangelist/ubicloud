@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud SSH Public Key API
+  description: API for managing resources on Ubicloud
+  title: Clover SSH Public Key API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged SSH Public Key across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -46,8 +46,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - SSH Public Key
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/ssh-public-key/{ssh_public_key_reference}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -92,39 +90,55 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - SSH Public Key
-    servers:
-    - url: https://api.ubicloud.com
 components:
-  responses:
-    Delete:
-      description: An empty response after successful resource delete
-    Error:
-      description: An error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    SshPublicKey:
-      description: An SSH Public Key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SshPublicKey'
-    SshPublicKeys:
-      description: A list of Ssh Public Keys
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SshPublicKey'
-            additionalProperties: false
-            required:
-            - items
   schemas:
+    SshPublicKeyCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        public_key:
+          type: string
+      additionalProperties: false
+      required:
+      - name
+      - public_key
+    SshPublicKeyUpdate:
+      anyOf:
+      - type: object
+        properties:
+          name:
+            type: string
+          public_key:
+            type: string
+        additionalProperties: false
+        required:
+        - name
+      - type: object
+        properties:
+          public_key:
+            type: string
+        additionalProperties: false
+        required:
+        - public_key
+    SshPublicKey:
+      type: object
+      properties:
+        id:
+          description: ID of the SSH public key
+          type: string
+          example: skaz0q3vbrpa7pkg7zbmah9csn
+          pattern: ^sk[0-9a-hj-km-np-tv-z]{24}$
+        name:
+          description: Name of the SSH public key
+          type: string
+        public_key:
+          description: SSH public key data
+          type: string
+      additionalProperties: false
+      required:
+      - id
+      - name
     Error:
       type: object
       properties:
@@ -152,67 +166,40 @@ components:
       additionalProperties: false
       required:
       - error
-    SshPublicKeyUpdate:
-      anyOf:
-      - type: object
-        properties:
-          name:
-            type: string
-          public_key:
-            type: string
-        additionalProperties: false
-        required:
-        - name
-      - type: object
-        properties:
-          public_key:
-            type: string
-        additionalProperties: false
-        required:
-        - public_key
-    SshPublicKeyCreate:
-      type: object
-      properties:
-        name:
-          type: string
-        public_key:
-          type: string
-      additionalProperties: false
-      required:
-      - name
-      - public_key
     Reference:
       description: Resource ID or name
       type: string
       pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+  responses:
     SshPublicKey:
-      type: object
-      properties:
-        id:
-          description: ID of the SSH public key
-          type: string
-          example: skaz0q3vbrpa7pkg7zbmah9csn
-          pattern: ^sk[0-9a-hj-km-np-tv-z]{24}$
-        name:
-          description: Name of the SSH public key
-          type: string
-        public_key:
-          description: SSH public key data
-          type: string
-      additionalProperties: false
-      required:
-      - id
-      - name
+      description: An SSH Public Key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SshPublicKey'
+    Delete:
+      description: An empty response after successful resource delete
+    SshPublicKeys:
+      description: A list of Ssh Public Keys
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SshPublicKey'
+            additionalProperties: false
+            required:
+            - items
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    project_id:
-      description: ID of the project
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: string
-        example: pjkkmx0f2vke4h36nk9cm8v8q0
-        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
     ssh_public_key_reference:
       description: SSH public key ID or name
       examples:
@@ -225,11 +212,17 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/Reference'
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

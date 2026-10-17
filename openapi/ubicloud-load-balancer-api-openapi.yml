@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Load Balancer API
+  description: API for managing resources on Ubicloud
+  title: Clover Load Balancer API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Load Balancer across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -33,8 +33,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Load Balancer
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/load-balancer:
     get:
       operationId: listLocationLoadBalancers
@@ -52,8 +50,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Load Balancer
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -176,8 +172,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Load Balancer
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}/attach-vm:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -206,8 +200,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Load Balancer
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}/detach-vm:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -236,8 +228,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Load Balancer
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}/rename:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -266,8 +256,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Load Balancer
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/load-balancer/{load_balancer_reference}/toggle-ssl-certificate:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -296,138 +284,8 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Load Balancer
-    servers:
-    - url: https://api.ubicloud.com
 components:
-  responses:
-    Delete:
-      description: An empty response after successful resource delete
-    LoadBalancer:
-      description: A Load Balancer
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            allOf:
-            - $ref: '#/components/schemas/LoadBalancer'
-            - properties:
-                subnet:
-                  description: Subnet of the Load Balancer
-                  type: string
-                vms:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Vm'
-              additionalProperties: false
-              required:
-              - location
-              - subnet
-              - vms
-    Error:
-      description: An error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    LoadBalancers:
-      description: A list of Load Balancers
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              count:
-                type: integer
-              items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/LoadBalancer'
-            additionalProperties: false
-            required:
-            - count
-            - items
-  parameters:
-    location:
-      description: The Ubicloud location/region
-      in: path
-      name: location
-      required: true
-      schema:
-        type: string
-        example: eu-central-h1
-    project_id:
-      description: ID of the project
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: string
-        example: pjkkmx0f2vke4h36nk9cm8v8q0
-        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
-    load_balancer_reference:
-      description: Load balancer ID or name
-      examples:
-        id:
-          value: 1bn30gjk1d1e2jj34v9x0dq4rp
-        name:
-          value: load-balancer-name
-      in: path
-      name: load_balancer_reference
-      required: true
-      schema:
-        $ref: '#/components/schemas/Reference'
-    order_column:
-      description: Pagination - Order column
-      in: query
-      name: order_column
-      required: false
-      schema:
-        type: string
-        default: id
-    start_after:
-      description: Pagination - Start after
-      in: query
-      name: start_after
-      required: false
-      schema:
-        type: string
-    page_size:
-      description: Pagination - Page size
-      in: query
-      name: page_size
-      required: false
-      schema:
-        type: integer
-        default: 10
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          additionalProperties: false
-          properties:
-            code:
-              type: integer
-              example: 401
-            message:
-              type: string
-              example: There was an error logging in
-            type:
-              type: string
-              example: InvalidCredentials
-            details:
-              type:
-              - object
-              - 'null'
-          required:
-          - code
-          - message
-          - type
-      additionalProperties: false
-      required:
-      - error
     Vm:
       type: object
       properties:
@@ -494,6 +352,33 @@ components:
       - storage_size_gib
       - unix_user
       x-go-name: VmSchema
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: There was an error logging in
+            type:
+              type: string
+              example: InvalidCredentials
+            details:
+              type:
+              - object
+              - 'null'
+          required:
+          - code
+          - message
+          - type
+      additionalProperties: false
+      required:
+      - error
     Reference:
       description: Resource ID or name
       type: string
@@ -547,11 +432,109 @@ components:
       - name
       - src_port
       x-go-name: LoadBalancerSchema
+  parameters:
+    page_size:
+      description: Pagination - Page size
+      in: query
+      name: page_size
+      required: false
+      schema:
+        type: integer
+        default: 10
+    load_balancer_reference:
+      description: Load balancer ID or name
+      examples:
+        id:
+          value: 1bn30gjk1d1e2jj34v9x0dq4rp
+        name:
+          value: load-balancer-name
+      in: path
+      name: load_balancer_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+    location:
+      description: The Ubicloud location/region
+      in: path
+      name: location
+      required: true
+      schema:
+        type: string
+        example: eu-central-h1
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    start_after:
+      description: Pagination - Start after
+      in: query
+      name: start_after
+      required: false
+      schema:
+        type: string
+    order_column:
+      description: Pagination - Order column
+      in: query
+      name: order_column
+      required: false
+      schema:
+        type: string
+        default: id
+  responses:
+    LoadBalancer:
+      description: A Load Balancer
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            allOf:
+            - $ref: '#/components/schemas/LoadBalancer'
+            - properties:
+                subnet:
+                  description: Subnet of the Load Balancer
+                  type: string
+                vms:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Vm'
+              additionalProperties: false
+              required:
+              - location
+              - subnet
+              - vms
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Delete:
+      description: An empty response after successful resource delete
+    LoadBalancers:
+      description: A list of Load Balancers
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoadBalancer'
+            additionalProperties: false
+            required:
+            - count
+            - items
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

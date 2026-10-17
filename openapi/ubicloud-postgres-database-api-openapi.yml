@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Postgres Database API
+  description: API for managing resources on Ubicloud
+  title: Clover Postgres Database API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Postgres Database across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -34,8 +34,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -157,8 +155,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/backup:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -174,8 +170,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/backup-credentials:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -191,8 +185,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/ca-certificates:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -218,8 +210,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/cert/add-auth-user:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -241,8 +231,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/cert/create-client-keypair:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -282,8 +270,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/cert/remove-auth-user:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -305,8 +291,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/config:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -366,8 +350,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/logs:
     parameters:
     - $ref: '#/components/parameters/location'
@@ -452,8 +434,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/metrics:
     parameters:
     - $ref: '#/components/parameters/location'
@@ -493,8 +473,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/promote:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -511,8 +489,6 @@ paths:
       deprecated: true
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/promote-read-replica:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -528,8 +504,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/read-replica:
     post:
       operationId: createPostgresDatabaseReadReplica
@@ -575,8 +549,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/recycle:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -592,8 +564,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/rename:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -622,8 +592,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/reset-superuser-password:
     post:
       operationId: resetSuperuserPassword
@@ -651,8 +619,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/restart:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -668,8 +634,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/restore:
     post:
       operationId: restorePostgresDatabase
@@ -720,8 +684,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/servers:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -737,8 +699,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/set-maintenance-window:
     post:
       operationId: setMaintenanceWindow
@@ -768,8 +728,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/upgrade:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -799,8 +757,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/postgres:
     get:
       operationId: listPostgresDatabases
@@ -818,8 +774,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/postgres/capabilities:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -838,182 +792,8 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Database
-    servers:
-    - url: https://api.ubicloud.com
 components:
   schemas:
-    ResourceMetrics:
-      type: object
-      properties:
-        metrics:
-          type: array
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              key:
-                description: Key of the metric
-                type: string
-                example: cpu_usage
-              name:
-                description: Name of the metric
-                type: string
-                example: CPU Usage
-              description:
-                description: Description of the metric
-                type: string
-                example: Percentage of CPU used by the system
-              unit:
-                description: Unit of measurement for the metric
-                type:
-                - string
-                - 'null'
-                example: percent
-              series:
-                type: array
-                items:
-                  type: object
-                  additionalProperties: false
-                  properties:
-                    labels:
-                      description: Labels identifying the time series
-                      type: object
-                      example:
-                        instance: pv9z3a26qkyy4qcxrhzg5f1bs8
-                      additionalProperties:
-                        type: string
-                    values:
-                      description: Array of timestamp-value pairs
-                      type: array
-                      items:
-                        type: array
-                        minItems: 2
-                        maxItems: 2
-                        items:
-                          oneOf:
-                          - type: number
-                            description: Unix timestamp
-                          - type: string
-                            description: Sample value
-                  required:
-                  - labels
-                  - values
-            required:
-            - name
-            - unit
-            - series
-      additionalProperties: false
-      required:
-      - metrics
-    CertAuthUserRequest:
-      type: object
-      properties:
-        name:
-          description: name of user
-          type: string
-      additionalProperties: false
-      required:
-      - name
-    PostgresTag:
-      type: object
-      properties:
-        key:
-          description: Key of the Postgres tag
-          type: string
-        value:
-          description: Value of the Postgres tag
-          type: string
-      additionalProperties: false
-      required:
-      - key
-      - value
-    PostgresPatchConfig:
-      anyOf:
-      - type: object
-        properties:
-          pg_config:
-            type: object
-            example:
-              max_connections: '100'
-            additionalProperties:
-              type:
-              - string
-              - 'null'
-          pgbouncer_config:
-            type: object
-            example:
-              max_client_conn: '100'
-            additionalProperties:
-              type:
-              - string
-              - 'null'
-        additionalProperties: false
-        required:
-        - pg_config
-      - type: object
-        properties:
-          pgbouncer_config:
-            type: object
-            example:
-              max_client_conn: '100'
-            additionalProperties:
-              type:
-              - string
-              - 'null'
-        additionalProperties: false
-        required:
-        - pgbouncer_config
-    MaintenanceWindowDay:
-      type: string
-      enum:
-      - mon
-      - tue
-      - wed
-      - thu
-      - fri
-      - sat
-      - sun
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          additionalProperties: false
-          properties:
-            code:
-              type: integer
-              example: 401
-            message:
-              type: string
-              example: There was an error logging in
-            type:
-              type: string
-              example: InvalidCredentials
-            details:
-              type:
-              - object
-              - 'null'
-          required:
-          - code
-          - message
-          - type
-      additionalProperties: false
-      required:
-      - error
-    PostgresBackup:
-      type: object
-      properties:
-        key:
-          description: Backup key/identifier
-          type: string
-        last_modified:
-          description: Last modified timestamp of the backup
-          type: string
-          format: date-time
-      additionalProperties: false
-      required:
-      - key
-      - last_modified
     PostgresCapabilities:
       description: 'Tree of valid option combinations and metadata for each option value. The option_tree encodes parent-child dependencies: traverse from flavor -> location -> family -> size -> storage_size -> ha_type (with version branching from flavor). Only combinations present in the tree are valid for provisioning.'
       type: object
@@ -1102,123 +882,69 @@ components:
       required:
       - option_tree
       - metadata
-    Reference:
-      description: Resource ID or name
-      type: string
-      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
-    CertAuthUserList:
+    ResourceMetrics:
       type: object
       properties:
-        items:
+        metrics:
           type: array
           items:
-            type: string
+            type: object
+            additionalProperties: false
+            properties:
+              key:
+                description: Key of the metric
+                type: string
+                example: cpu_usage
+              name:
+                description: Name of the metric
+                type: string
+                example: CPU Usage
+              description:
+                description: Description of the metric
+                type: string
+                example: Percentage of CPU used by the system
+              unit:
+                description: Unit of measurement for the metric
+                type:
+                - string
+                - 'null'
+                example: percent
+              series:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    labels:
+                      description: Labels identifying the time series
+                      type: object
+                      example:
+                        instance: pv9z3a26qkyy4qcxrhzg5f1bs8
+                      additionalProperties:
+                        type: string
+                    values:
+                      description: Array of timestamp-value pairs
+                      type: array
+                      items:
+                        type: array
+                        minItems: 2
+                        maxItems: 2
+                        items:
+                          oneOf:
+                          - type: number
+                            description: Unix timestamp
+                          - type: string
+                            description: Sample value
+                  required:
+                  - labels
+                  - values
+            required:
+            - name
+            - unit
+            - series
       additionalProperties: false
       required:
-      - items
-    PostgresFirewallRule:
-      type: object
-      properties:
-        cidr:
-          description: CIDR of the firewall rule
-          type: string
-        description:
-          description: Port information for the firewall rule
-          type: string
-        id:
-          description: ID of the firewall rule
-          type: string
-          example: frmjgkgbktw62k53005jpx8tt7
-          pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
-        port:
-          description: Port for the Postgres firewall rule
-          type: integer
-      additionalProperties: false
-      required:
-      - cidr
-      - id
-    PostgresBackupCredentials:
-      type: object
-      properties:
-        bucket:
-          description: Name of the bucket backups are stored in
-          type: string
-        endpoint:
-          description: Object storage endpoint URL
-          type: string
-        region:
-          description: Object storage region
-          type: string
-        access_key_id:
-          description: Temporary access key ID
-          type: string
-        secret_access_key:
-          description: Temporary secret access key
-          type: string
-        session_token:
-          description: Temporary session token, required alongside the access key ID and secret access key
-          type: string
-        expiration:
-          description: When these temporary credentials expire
-          type: string
-          format: date-time
-      additionalProperties: false
-      required:
-      - bucket
-      - endpoint
-      - region
-      - access_key_id
-      - secret_access_key
-      - session_token
-      - expiration
-    PostgresDatabaseLogEntry:
-      type: object
-      properties:
-        timestamp:
-          description: Log entry timestamp in RFC 3339 format
-          type: string
-          format: date-time
-        stream_name:
-          type: string
-          enum:
-          - postgres
-          - pgbouncer
-          - upgrade
-        severity_level:
-          description: Log severity level
-          type: string
-          enum:
-          - UNSPECIFIED
-          - DEBUG
-          - INFO
-          - WARN
-          - ERROR
-          - FATAL
-        message:
-          description: Log message body
-          type: string
-        server_ubid:
-          description: UBID of the server that produced this log entry
-          type: string
-          pattern: ^pv[0-9a-hj-km-np-tv-z]{24}$
-        server_role:
-          type: string
-          enum:
-          - primary
-          - standby
-        context:
-          description: Additional context fields parsed from the log entry (e.g. remote_host_port, dbname, pid, user)
-          type: object
-          additionalProperties:
-            type: string
-      additionalProperties: false
-      required:
-      - timestamp
-      - stream_name
-      - severity_level
-      - message
-      - server_ubid
-      - server_role
+      - metrics
     PostgresDatabase:
       type: object
       properties:
@@ -1326,6 +1052,108 @@ components:
       - tags
       - created_at
       x-go-name: PostgresDatabaseSchema
+    PostgresFirewallRule:
+      type: object
+      properties:
+        cidr:
+          description: CIDR of the firewall rule
+          type: string
+        description:
+          description: Port information for the firewall rule
+          type: string
+        id:
+          description: ID of the firewall rule
+          type: string
+          example: frmjgkgbktw62k53005jpx8tt7
+          pattern: ^fr[0-9a-hj-km-np-tv-z]{24}$
+        port:
+          description: Port for the Postgres firewall rule
+          type: integer
+      additionalProperties: false
+      required:
+      - cidr
+      - id
+    CertAuthUserList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+      required:
+      - items
+    MaintenanceWindowDay:
+      type: string
+      enum:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: There was an error logging in
+            type:
+              type: string
+              example: InvalidCredentials
+            details:
+              type:
+              - object
+              - 'null'
+          required:
+          - code
+          - message
+          - type
+      additionalProperties: false
+      required:
+      - error
+    PostgresBackupCredentials:
+      type: object
+      properties:
+        bucket:
+          description: Name of the bucket backups are stored in
+          type: string
+        endpoint:
+          description: Object storage endpoint URL
+          type: string
+        region:
+          description: Object storage region
+          type: string
+        access_key_id:
+          description: Temporary access key ID
+          type: string
+        secret_access_key:
+          description: Temporary secret access key
+          type: string
+        session_token:
+          description: Temporary session token, required alongside the access key ID and secret access key
+          type: string
+        expiration:
+          description: When these temporary credentials expire
+          type: string
+          format: date-time
+      additionalProperties: false
+      required:
+      - bucket
+      - endpoint
+      - region
+      - access_key_id
+      - secret_access_key
+      - session_token
+      - expiration
     PostgresServer:
       type: object
       properties:
@@ -1368,6 +1196,19 @@ components:
       - role
       - state
       - synchronization_status
+    PostgresTag:
+      type: object
+      properties:
+        key:
+          description: Key of the Postgres tag
+          type: string
+        value:
+          description: Value of the Postgres tag
+          type: string
+      additionalProperties: false
+      required:
+      - key
+      - value
     PostgresConfig:
       type: object
       properties:
@@ -1403,23 +1244,118 @@ components:
       required:
       - pg_config
       - pgbouncer_config
+    PostgresPatchConfig:
+      anyOf:
+      - type: object
+        properties:
+          pg_config:
+            type: object
+            example:
+              max_connections: '100'
+            additionalProperties:
+              type:
+              - string
+              - 'null'
+          pgbouncer_config:
+            type: object
+            example:
+              max_client_conn: '100'
+            additionalProperties:
+              type:
+              - string
+              - 'null'
+        additionalProperties: false
+        required:
+        - pg_config
+      - type: object
+        properties:
+          pgbouncer_config:
+            type: object
+            example:
+              max_client_conn: '100'
+            additionalProperties:
+              type:
+              - string
+              - 'null'
+        additionalProperties: false
+        required:
+        - pgbouncer_config
+    PostgresDatabaseLogEntry:
+      type: object
+      properties:
+        timestamp:
+          description: Log entry timestamp in RFC 3339 format
+          type: string
+          format: date-time
+        stream_name:
+          type: string
+          enum:
+          - postgres
+          - pgbouncer
+          - upgrade
+        severity_level:
+          description: Log severity level
+          type: string
+          enum:
+          - UNSPECIFIED
+          - DEBUG
+          - INFO
+          - WARN
+          - ERROR
+          - FATAL
+        message:
+          description: Log message body
+          type: string
+        server_ubid:
+          description: UBID of the server that produced this log entry
+          type: string
+          pattern: ^pv[0-9a-hj-km-np-tv-z]{24}$
+        server_role:
+          type: string
+          enum:
+          - primary
+          - standby
+        context:
+          description: Additional context fields parsed from the log entry (e.g. remote_host_port, dbname, pid, user)
+          type: object
+          additionalProperties:
+            type: string
+      additionalProperties: false
+      required:
+      - timestamp
+      - stream_name
+      - severity_level
+      - message
+      - server_ubid
+      - server_role
+    Reference:
+      description: Resource ID or name
+      type: string
+      pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+    PostgresBackup:
+      type: object
+      properties:
+        key:
+          description: Backup key/identifier
+          type: string
+        last_modified:
+          description: Last modified timestamp of the backup
+          type: string
+          format: date-time
+      additionalProperties: false
+      required:
+      - key
+      - last_modified
+    CertAuthUserRequest:
+      type: object
+      properties:
+        name:
+          description: name of user
+          type: string
+      additionalProperties: false
+      required:
+      - name
   parameters:
-    start_after:
-      description: Pagination - Start after
-      in: query
-      name: start_after
-      required: false
-      schema:
-        type: string
-    project_id:
-      description: ID of the project
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: string
-        example: pjkkmx0f2vke4h36nk9cm8v8q0
-        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
     tags:
       description: Filter by tags in key:value format (comma-separated for multiple tags)
       in: query
@@ -1448,14 +1384,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/Reference'
-    location:
-      description: The Ubicloud location/region
-      in: path
-      name: location
-      required: true
+    start_after:
+      description: Pagination - Start after
+      in: query
+      name: start_after
+      required: false
       schema:
         type: string
-        example: eu-central-h1
     order_column:
       description: Pagination - Order column
       in: query
@@ -1464,37 +1399,56 @@ components:
       schema:
         type: string
         default: id
+    location:
+      description: The Ubicloud location/region
+      in: path
+      name: location
+      required: true
+      schema:
+        type: string
+        example: eu-central-h1
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
   responses:
-    CertAuthUserList:
-      description: full list of users using client certificate authentication
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CertAuthUserList'
-    PostgresDatabaseLogs:
-      description: Log entries for a Postgres Database
+    PostgresDatabaseUpgradeStatus:
+      description: A Postgres Database Upgrade Status
       content:
         application/json:
           schema:
             type: object
             properties:
-              logs:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PostgresDatabaseLogEntry'
-              pagination_key:
-                description: Pass as pagination_key to retrieve the next page of results
+              current_version:
                 type: string
-                pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+                enum:
+                - '16'
+                - '17'
+                - '18'
+              target_version:
+                type: string
+                enum:
+                - '16'
+                - '17'
+                - '18'
+              upgrade_status:
+                type: string
+              upgrade_stage:
+                type:
+                - string
+                - 'null'
             additionalProperties: false
             required:
-            - logs
-    PostgresBackupCredentials:
-      description: Temporary, read-only credentials for downloading backups directly from object storage
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PostgresBackupCredentials'
+            - current_version
+            - target_version
+            - upgrade_status
+    Delete:
+      description: An empty response after successful resource delete
     PostgresDatabase:
       description: A Postgres Database
       content:
@@ -1569,61 +1523,6 @@ components:
               - primary
               - maintenance_window_start_at
               - tags
-    Delete:
-      description: An empty response after successful resource delete
-    PostgresDatabases:
-      description: A list of Postgres Databases
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              count:
-                type: integer
-              items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PostgresDatabase'
-            additionalProperties: false
-            required:
-            - count
-            - items
-    Error:
-      description: An error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    PostgresDatabaseUpgradeStatus:
-      description: A Postgres Database Upgrade Status
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              current_version:
-                type: string
-                enum:
-                - '16'
-                - '17'
-                - '18'
-              target_version:
-                type: string
-                enum:
-                - '16'
-                - '17'
-                - '18'
-              upgrade_status:
-                type: string
-              upgrade_stage:
-                type:
-                - string
-                - 'null'
-            additionalProperties: false
-            required:
-            - current_version
-            - target_version
-            - upgrade_status
     PostgresBackups:
       description: A list of Postgres Database Backups
       content:
@@ -1664,11 +1563,61 @@ components:
             required:
             - count
             - items
+    CertAuthUserList:
+      description: full list of users using client certificate authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CertAuthUserList'
+    PostgresBackupCredentials:
+      description: Temporary, read-only credentials for downloading backups directly from object storage
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PostgresBackupCredentials'
+    PostgresDatabaseLogs:
+      description: Log entries for a Postgres Database
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              logs:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PostgresDatabaseLogEntry'
+              pagination_key:
+                description: Pass as pagination_key to retrieve the next page of results
+                type: string
+                pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+            additionalProperties: false
+            required:
+            - logs
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PostgresDatabases:
+      description: A list of Postgres Databases
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PostgresDatabase'
+            additionalProperties: false
+            required:
+            - count
+            - items
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

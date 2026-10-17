@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Postgres Log Destination API
+  description: API for managing resources on Ubicloud
+  title: Clover Postgres Log Destination API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Postgres Log Destination across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -59,8 +59,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Log Destination
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/postgres/{postgres_database_reference}/log-destination/{log_destination_id}:
     parameters:
     - $ref: '#/components/parameters/location'
@@ -77,64 +75,34 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Postgres Log Destination
-    servers:
-    - url: https://api.ubicloud.com
 components:
-  responses:
-    Delete:
-      description: An empty response after successful resource delete
-    Error:
-      description: An error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    PostgresLogDestination:
-      description: A Postgres Log Destination
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PostgresLogDestination'
-  parameters:
-    postgres_database_reference:
-      description: Postgres database ID or name
-      examples:
-        id:
-          value: pgn30gjk1d1e2jj34v9x0dq4rp
-        name:
-          value: postgres-database-name
-      in: path
-      name: postgres_database_reference
-      required: true
-      schema:
-        $ref: '#/components/schemas/Reference'
-    location:
-      description: The Ubicloud location/region
-      in: path
-      name: location
-      required: true
-      schema:
-        type: string
-        example: eu-central-h1
-    project_id:
-      description: ID of the project
-      in: path
-      name: project_id
-      required: true
-      schema:
-        type: string
-        example: pjkkmx0f2vke4h36nk9cm8v8q0
-        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
-    log_destination_id:
-      description: Postgres Log Destination ID
-      in: path
-      name: log_destination_id
-      required: true
-      schema:
-        type: string
-        example: 1d000000000000000000000000
-        pattern: ^1d[0-9a-hj-km-np-tv-z]{24}$
   schemas:
+    PostgresLogDestination:
+      type: object
+      properties:
+        id:
+          description: ID of the log destination
+          type: string
+          example: 1d000000000000000000000000
+          pattern: ^1d[0-9a-hj-km-np-tv-z]{24}$
+        name:
+          description: Name of the log destination
+          type: string
+        type:
+          description: 'Destination type: "otlp" or "syslog"'
+          type: string
+          enum:
+          - otlp
+          - syslog
+        url:
+          description: Destination URL
+          type: string
+      additionalProperties: false
+      required:
+      - id
+      - name
+      - type
+      - url
     Error:
       type: object
       properties:
@@ -166,37 +134,62 @@ components:
       description: Resource ID or name
       type: string
       pattern: ^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+  responses:
     PostgresLogDestination:
-      type: object
-      properties:
+      description: A Postgres Log Destination
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PostgresLogDestination'
+    Delete:
+      description: An empty response after successful resource delete
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
+    location:
+      description: The Ubicloud location/region
+      in: path
+      name: location
+      required: true
+      schema:
+        type: string
+        example: eu-central-h1
+    postgres_database_reference:
+      description: Postgres database ID or name
+      examples:
         id:
-          description: ID of the log destination
-          type: string
-          example: 1d000000000000000000000000
-          pattern: ^1d[0-9a-hj-km-np-tv-z]{24}$
+          value: pgn30gjk1d1e2jj34v9x0dq4rp
         name:
-          description: Name of the log destination
-          type: string
-        type:
-          description: 'Destination type: "otlp" or "syslog"'
-          type: string
-          enum:
-          - otlp
-          - syslog
-        url:
-          description: Destination URL
-          type: string
-      additionalProperties: false
-      required:
-      - id
-      - name
-      - type
-      - url
+          value: postgres-database-name
+      in: path
+      name: postgres_database_reference
+      required: true
+      schema:
+        $ref: '#/components/schemas/Reference'
+    log_destination_id:
+      description: Postgres Log Destination ID
+      in: path
+      name: log_destination_id
+      required: true
+      schema:
+        type: string
+        example: 1d000000000000000000000000
+        pattern: ^1d[0-9a-hj-km-np-tv-z]{24}$
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

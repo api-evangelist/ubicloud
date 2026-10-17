@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Inference Endpoint API
+  description: API for managing resources on Ubicloud
+  title: Clover Inference Endpoint API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Inference Endpoint across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -30,10 +30,61 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Inference Endpoint
-    servers:
-    - url: https://api.ubicloud.com
 components:
+  responses:
+    InferenceEndpoints:
+      description: A list of Inference Endpoints
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InferenceEndpoint'
+            additionalProperties: false
+            required:
+            - items
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    InferenceEndpoint:
+      type: object
+      properties:
+        id:
+          description: ID of the inference endpoint
+          type: string
+        name:
+          description: Name of the model
+          type: string
+        display_name:
+          description: Display name of the model
+          type: string
+        url:
+          description: URL of the inference endpoint
+          type: string
+        model_name:
+          description: Model name of the inference endpoint
+          type: string
+        tags:
+          description: Tags of the inference endpoint
+          type: object
+        price:
+          $ref: '#/components/schemas/InferenceEndpointPrice'
+      additionalProperties: false
+      required:
+      - id
+      - name
+      - display_name
+      - url
+      - model_name
+      - tags
+      - price
     Error:
       type: object
       properties:
@@ -78,38 +129,6 @@ components:
       required:
       - per_million_prompt_tokens
       - per_million_completion_tokens
-    InferenceEndpoint:
-      type: object
-      properties:
-        id:
-          description: ID of the inference endpoint
-          type: string
-        name:
-          description: Name of the model
-          type: string
-        display_name:
-          description: Display name of the model
-          type: string
-        url:
-          description: URL of the inference endpoint
-          type: string
-        model_name:
-          description: Model name of the inference endpoint
-          type: string
-        tags:
-          description: Tags of the inference endpoint
-          type: object
-        price:
-          $ref: '#/components/schemas/InferenceEndpointPrice'
-      additionalProperties: false
-      required:
-      - id
-      - name
-      - display_name
-      - url
-      - model_name
-      - tags
-      - price
   parameters:
     project_id:
       description: ID of the project
@@ -120,32 +139,8 @@ components:
         type: string
         example: pjkkmx0f2vke4h36nk9cm8v8q0
         pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
-  responses:
-    InferenceEndpoints:
-      description: A list of Inference Endpoints
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/InferenceEndpoint'
-            additionalProperties: false
-            required:
-            - items
-    Error:
-      description: An error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml

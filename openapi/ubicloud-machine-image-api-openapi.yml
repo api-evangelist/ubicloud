@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Ubicloud Machine Image API
+  description: API for managing resources on Ubicloud
+  title: Clover Machine Image API
   version: 0.1.0
   contact:
     url: https://www.ubicloud.com/
@@ -8,7 +9,6 @@ info:
   license:
     name: GNU Affero General Public License v3.0 (AGPL-3.0)
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-  description: 'Operations tagged Machine Image across 2 of this provider''s published API definitions: ubicloud-openapi.yml, ubicloud-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.ubicloud.com
 security:
@@ -34,8 +34,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Machine Image
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/machine-image/{machine_image_reference}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -120,8 +118,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Machine Image
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/machine-image/{machine_image_reference}/rename:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -150,8 +146,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Machine Image
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/machine-image/{machine_image_reference}/version:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -167,8 +161,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Machine Image
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/location/{location}/machine-image/{machine_image_reference}/version/{version}:
     parameters:
     - $ref: '#/components/parameters/project_id'
@@ -211,8 +203,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Machine Image
-    servers:
-    - url: https://api.ubicloud.com
   /project/{project_id}/machine-image:
     get:
       operationId: listProjectMachineImages
@@ -229,8 +219,6 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
       - Machine Image
-    servers:
-    - url: https://api.ubicloud.com
 components:
   responses:
     MachineImageVersion:
@@ -240,8 +228,6 @@ components:
           schema:
             $ref: '#/components/schemas/MachineImageVersion'
       x-go-name: MachineImageVersionResponse
-    Delete:
-      description: An empty response after successful resource delete
     MachineImageVersions:
       description: A list of machine image versions
       content:
@@ -259,18 +245,6 @@ components:
             required:
             - count
             - items
-    MachineImage:
-      description: A machine image
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/MachineImage'
-    Error:
-      description: An error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     MachineImages:
       description: A list of machine images
       content:
@@ -288,7 +262,47 @@ components:
             required:
             - count
             - items
+    Delete:
+      description: An empty response after successful resource delete
+    MachineImage:
+      description: A machine image
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MachineImage'
+    Error:
+      description: An error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    machine_image_new_name:
+      description: Name for a new machine image (UBID format not allowed)
+      example: my-image
+      in: path
+      name: machine_image_reference
+      required: true
+      schema:
+        type: string
+        pattern: ^(?!m1[0-9a-hj-km-np-tv-z]{24}$)[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+    page_size:
+      description: Pagination - Page size
+      in: query
+      name: page_size
+      required: false
+      schema:
+        type: integer
+        default: 10
+    project_id:
+      description: ID of the project
+      in: path
+      name: project_id
+      required: true
+      schema:
+        type: string
+        example: pjkkmx0f2vke4h36nk9cm8v8q0
+        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
     location:
       description: The Ubicloud location/region
       in: path
@@ -297,15 +311,6 @@ components:
       schema:
         type: string
         example: eu-central-h1
-    machine_image_version:
-      description: Version label of the machine image
-      example: v1.0
-      in: path
-      name: version
-      required: true
-      schema:
-        type: string
-        pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$
     machine_image_reference:
       description: Machine Image ID or name
       examples:
@@ -318,15 +323,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/Reference'
-    project_id:
-      description: ID of the project
-      in: path
-      name: project_id
-      required: true
+    start_after:
+      description: Pagination - Start after
+      in: query
+      name: start_after
+      required: false
       schema:
         type: string
-        example: pjkkmx0f2vke4h36nk9cm8v8q0
-        pattern: ^pj[0-9a-hj-km-np-tv-z]{24}$
     order_column:
       description: Pagination - Order column
       in: query
@@ -335,31 +338,62 @@ components:
       schema:
         type: string
         default: id
-    start_after:
-      description: Pagination - Start after
-      in: query
-      name: start_after
-      required: false
-      schema:
-        type: string
-    page_size:
-      description: Pagination - Page size
-      in: query
-      name: page_size
-      required: false
-      schema:
-        type: integer
-        default: 10
-    machine_image_new_name:
-      description: Name for a new machine image (UBID format not allowed)
-      example: my-image
+    machine_image_version:
+      description: Version label of the machine image
+      example: v1.0
       in: path
-      name: machine_image_reference
+      name: version
       required: true
       schema:
         type: string
-        pattern: ^(?!m1[0-9a-hj-km-np-tv-z]{24}$)[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$
+        pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$
   schemas:
+    MachineImageVersion:
+      type: object
+      properties:
+        id:
+          description: ID of the machine image version
+          type: string
+          example: mvn30gjk1d1e2jj34v9x0dq4rp
+        version:
+          description: Version label
+          type: string
+          example: v1.0
+        state:
+          description: Lifecycle state, or null if no metal record exists
+          type:
+          - string
+          - 'null'
+          enum:
+          - creating
+          - ready
+          - destroying
+          - failed
+        actual_size_mib:
+          description: Actual size of the image in MiB
+          type:
+          - integer
+          - 'null'
+        archive_size_mib:
+          description: Size of the archived image in MiB
+          type:
+          - integer
+          - 'null'
+        created_at:
+          description: Creation timestamp
+          type: string
+          format: date-time
+        latest:
+          description: True if this is the machine image's currently-published latest version
+          type: boolean
+      additionalProperties: false
+      required:
+      - id
+      - version
+      - state
+      - created_at
+      - latest
+      x-go-name: MachineImageVersionSchema
     Error:
       type: object
       properties:
@@ -429,57 +463,8 @@ components:
       - location
       - arch
       - created_at
-    MachineImageVersion:
-      type: object
-      properties:
-        id:
-          description: ID of the machine image version
-          type: string
-          example: mvn30gjk1d1e2jj34v9x0dq4rp
-        version:
-          description: Version label
-          type: string
-          example: v1.0
-        state:
-          description: Lifecycle state, or null if no metal record exists
-          type:
-          - string
-          - 'null'
-          enum:
-          - creating
-          - ready
-          - destroying
-          - failed
-        actual_size_mib:
-          description: Actual size of the image in MiB
-          type:
-          - integer
-          - 'null'
-        archive_size_mib:
-          description: Size of the archived image in MiB
-          type:
-          - integer
-          - 'null'
-        created_at:
-          description: Creation timestamp
-          type: string
-          format: date-time
-        latest:
-          description: True if this is the machine image's currently-published latest version
-          type: boolean
-      additionalProperties: false
-      required:
-      - id
-      - version
-      - state
-      - created_at
-      - latest
-      x-go-name: MachineImageVersionSchema
   securitySchemes:
     BearerAuth:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- ubicloud-openapi.yml
-- ubicloud-openapi.yml
