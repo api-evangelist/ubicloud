@@ -26,6 +26,15 @@ tags:
 - Company
 - Cloud Computing
 - Open Source
+- Infrastructure-as-a-Service
+- PostgreSQL
+- Kubernetes
+- Virtual Machines
+- GitHub Actions
+tags_raw:
+- Company
+- Cloud Computing
+- Open Source
 - Infrastructure as a Service
 - PostgreSQL
 - Kubernetes
@@ -139,6 +148,8 @@ apis:
   humanURL: https://www.ubicloud.com/docs/api-reference/overview
   baseURL: https://api.ubicloud.com
   tags:
+  - Audit Logs
+  tags_raw:
   - Audit Log
   properties:
   - type: OpenAPI
@@ -547,6 +558,8 @@ apis:
   humanURL: https://www.ubicloud.com/docs/api-reference/overview
   baseURL: https://api.ubicloud.com
   tags:
+  - Virtual Machines
+  tags_raw:
   - Virtual Machine
   properties:
   - type: OpenAPI
