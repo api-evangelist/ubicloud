@@ -91,3 +91,88 @@ plans:
   price_text: $215.46
   features: []
   limits: []
+x-canonical:
+  generated: '2026-10-18'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: GitHub Actions free credit
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Standard x64 Runner (ubicloud-standard-2)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Premium x64 Runner (2 vCPU)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: standard-2 VM
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: standard-60 VM
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: burstable-1 VM
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Public IPv4 address
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Egress overage
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Machine Image Storage
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Standard PostgreSQL standard-2
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Hobby PostgreSQL hobby-1
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Managed Kubernetes single node control plane, 1 worker
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Managed Kubernetes 3 nodes (HA), 3 workers
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
